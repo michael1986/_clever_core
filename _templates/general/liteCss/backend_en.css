@@ -1,0 +1,41 @@
+/* Buttons */
+.backendBtnSignin {
+    background: url('{$_coreurl}images/en/btn_signin_en.png') no-repeat;
+    border: 0;
+    cursor: pointer;
+    display: block;
+    height: 34px;
+    margin: 0;
+    outline: none;
+    padding: 0;
+    text-indent: -9999px;
+    width: 96px;
+}
+.backendBtnSignin:hover {
+    background-position: 0 -34px;
+    border: 0;
+    margin: 0;
+    outline: none;
+    padding: 0;
+}
+
+.backendBtnExit {
+    background: url('{$_coreurl}images/en/btn_exit_en.png') no-repeat;
+    border: 0;
+    cursor: pointer;
+    display: block;
+    height: 30px;
+    margin: 0;
+    outline: none;
+    padding: 0;
+    text-indent: -9999px;
+    width: 87px;
+}
+.backendBtnExit:hover {
+    background-position: 0 -30px;
+    border: 0;
+    margin: 0;
+    outline: none;
+    padding: 0;
+}
+

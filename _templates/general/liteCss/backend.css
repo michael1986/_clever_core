@@ -1,0 +1,751 @@
+#BackendHtml {
+    height: 100%;
+}
+#BackendBody {
+    color: #404040;
+    background: #cde9f3;
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+    height: 100%;
+    margin: 0;
+    overflow-y: scroll;
+    padding: 0;
+}
+table.backendLayout {
+    border-collapse: collapse;
+}
+td.backendLayout {
+    padding: 0;
+    vertical-align: top;
+}
+a.backendHref {
+    color: #002748;
+    font-family: arial, helvetica, san-serif;
+    text-decoration: underline;
+}
+a.backendHref:hover {
+    text-decoration: none;
+}
+
+#BackendHeadContainer {
+    background: url('{$_coreurl}images/head_bg.jpg');
+    height: 78px;
+}
+#BackendHeadLogo {
+    background: url('{$_coreurl}images/cc_logo.jpg') no-repeat;
+    float: left;
+    height: 78px;
+    width: 490px;
+}
+#BackendHeadContainer .backendBtnExit {
+    float: right;
+    margin-right: 25px;
+    margin-top: 20px;
+}
+
+/* Menu */
+#BackendMenuContainer {
+    background: url('{$_coreurl}images/menu_bg.jpg');
+    height: 32px;
+    padding-left: 25px;
+}
+.backendMenuItemOnContent {
+    background: url('{$_coreurl}images/item_on_bg.jpg');
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+    float: left;
+    font-size: 13px;
+    font-weight: normal;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 15px;
+}
+.backendMenuItemOffContent {
+    background-image: url('{$_coreurl}images/item_off_bg.jpg');
+    border-left: 1px solid #afafa8;
+    border-right: 1px solid #afafa8;
+    color: #89cdf7;
+    float: left;
+    font-size: 13px;
+    font-weight: normal;
+    height: 31px;
+    line-height: 31px;
+    padding: 0 15px;
+    text-decoration: none;
+}
+.backendMenuItemOffContent:hover {
+    background-position: 0 -31px;
+    color: #fff;
+}
+
+/* Sign in form and instructions */
+.backendSigninContentContainer {
+    margin: 15px 25px 0 25px;
+}
+#BackendSigninContainer {
+    overflow: hidden;
+    padding: 0 0 200px 25px;
+}
+#BackendSigninFormContainer {
+    border-right: 1px solid #c7d9e7;
+    float: left;
+    width: 304px; 
+    padding-right: 30px;
+}
+#BackendSigninFormContainer h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+#BackendSigninFormContainer h3 span {
+    color: #e40000;
+}
+#BackendSigninFormContainer p {
+    color: #808080;
+    font-size: 11px;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+#BackendSigninFormContainer .backendSigninFieldContainer {
+    border: 1px solid #cde9f3;
+    padding: 1px;
+}
+#BackendSigninFormContainer .backendSigninSubmitContainer {
+    height: 34px;
+}
+.backendSigninSubmitContainer .backendBtnSignin {
+    float: right;
+}
+.backendSigninEnterLogin, .backendSigninEnterPassword {
+    background: #d4e7ee;
+    border: 0;
+    height: 26px;
+    line-height: 26px;
+    width: 300px;
+}
+#BackendSigninFormErrorsContainer {
+    background: #ffdddd;
+    border: 1px solid #e40000;
+    color: #e40000;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.backendSigninInstructions {
+    margin-left: 364px;
+    margin-right: 25px;
+    padding: 15px 25px;
+    width: 400px
+}
+.backendSigninInstructions h2 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+.backendSigninInstructions p {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+/* Inside left menu */
+.backendLeftRightColumnContainer {
+    background: url('{$_coreurl}images/left_menu_bg.jpg') 0 0 repeat-y;
+    margin: 10px 25px;
+}
+.backendLeftColumnContainer {
+    border-bottom: 1px solid #c3dee8;
+    float: left;
+    margin-top: 20px;
+    width: 200px;
+}
+.backendLeftMenuItemOff {
+    background-image: url('{$_coreurl}images/left_menu_item_off_bg.jpg');
+    background-position: 0 50%;
+    border-left: 1px solid #c3dee8;
+    border-right: 1px solid #c3dee8;
+    border-top: 1px solid #c3dee8;
+    color: #004473;
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+}
+.backendLeftMenuItemOff:hover {
+    background-position: 200px 50%;
+    color: #002748;
+}
+.backendLeftMenuItemOn {
+    background: #f3f3f3;
+    border-left: 1px solid #c3dee8;
+    border-top: 1px solid #c3dee8;
+    padding: 10px 15px;
+}
+.backendLeftMenuCategory {
+    background: url('{$_coreurl}images/left_menu_category_bg.jpg') 0 50%;
+    border-left: 1px solid #707070;
+    border-right: 1px solid #707070;
+    border-top: 1px solid #707070;
+    color: #e6f6fc;
+    display: block;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 5px 10px;
+}
+
+/* Inside content */
+.backendRightColumnContainer {
+    background: #f3f3f3;
+    border-bottom: 1px solid #c7d9e7;
+    border-right: 1px solid #c7d9e7;
+    border-top: 1px solid #c7d9e7;
+}
+.backendNoColumnsContainer {
+    background: #f3f3f3;
+    border: 1px solid #c7d9e7;
+    margin: 15px 25px;
+}
+.backendBreadcrumbsContainer {
+    background-image: url('{$_coreurl}images/breadcrumbs_bg.jpg');
+    background-position: 0 50%;
+    border: 1px solid #e1ecf2;
+    height: 36px;
+    margin-bottom: 10px;
+}
+.backendBreadcrumbsHref {
+    display: block;
+    float: left;
+    line-height: 16px;
+    padding: 10px 15px;
+}
+.backendBreadcrumbsSeparator {
+    background-image: url('{$_coreurl}images/breadcrumbs_arr.png');
+    background-position: 50% 50%;
+    display: block;
+    float: left;
+    height: 36px;
+    width: 10px;
+}
+.backendBreadcrumbsTitle {
+    display: block;
+    float: left;
+    font-weight: bold;
+    padding: 10px 15px;
+}
+
+/* expand / contract */
+.backendSwitchFullScreen {
+    background-image: url('{$_coreurl}images/control_bg.jpg'); 
+    background-position: 0 50%; 
+    border-top: 1px solid #b7d0e1; 
+    border-left: 1px solid #b7d0e1; 
+    border-right: 1px solid #b7d0e1; 
+    color: #000; 
+    display: block; 
+    float: right; 
+    line-height: 30px;
+    margin-right: 25px;
+    max-width: 200px;
+    outline: none;
+    padding: 0 15px;
+    text-decoration: none;
+    padding: 0 10px;
+}
+.backendSwitchFullScreen:hover {
+    background-position: 200px 50%; 
+    color: #004473;
+}
+.backendSwitchNormalView {
+    background-image: url('{$_coreurl}images/control_bg.jpg'); 
+    background-position: 0 50%; 
+    border: 1px solid #b7d0e1; 
+    color: #000; 
+    display: block; 
+    float: right; 
+    line-height: 30px;
+    margin-top: 1px;
+    margin-right: 25px;
+    max-width: 200px;
+    outline: none;
+    padding: 0 15px;
+    text-decoration: none;
+    padding: 0 10px;
+}
+/*
+.backendSwitchNormalView:hover {
+    background-position: 200px 50%; 
+    color: #004473;
+}
+*/
+
+/* Copyright */
+#BackendCopyrContainer {
+    background: #e9f0f3;
+    border: 1px solid #b6d0e1;
+    clear: both;
+    line-height: 31px;
+    margin: 15px 25px 20px 25px;
+    padding: 10px 25px;
+    overflow: hidden;
+}
+.poweredByCC {
+    background: url('{$_coreurl}images/powered-by-cc.jpg');
+    display: block;
+    float: right;
+    height: 31px;
+    width: 88px;
+}
+
+/* Boxes */
+.backendBox01 {
+    background: #f3f3f3;
+    border: 1px solid #fff;
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+}
+.backendBox02 {
+    background: #ebf4f7;
+    border: 1px solid #c7d9e7;
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+}
+.backendBox03 {
+    background: #f3f3f3;
+    border: 1px solid #c7d9e7;
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+}
+.backendBox04 {
+    background: #cdebfc;
+    border: 1px solid #71b8de;
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+}
+
+/* Form 01 */
+.form01Container {
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    /*display: inline-block;*/
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+    min-width: 700px;
+}
+.form01PopupContainer {
+    background: #f3f8fa;
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+    min-width: 700px;
+}
+.form01Title, .form01PopupTitle {
+    background-color: #003366;
+    background-image: url('{$_coreurl}images/form_title_bg.jpg');
+    background-position: 0 50%;
+    background-repeat: repeat-x;
+    border-bottom: 1px solid #003B5E;
+    border-top: 1px solid #7fa4bc;
+    border-left: 1px solid #7fa4bc;
+    border-right: 1px solid #003B5E;
+    color: #fff;
+    font-family: arial, helvetica, san-serif;
+    font-size: 16px;
+    font-weight: bold;
+    height: 28px;
+    line-height: 28px;
+    padding: 5px 10px;
+}
+.form01Error {
+    background-color: #ffaaaa;
+    border: 1px solid #ff0000;
+    color: #aa0000;
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+    padding: 5px 10px;
+}
+.form01Info {
+    background-color: #aaffaa;
+    border: 1px solid #00aa00;
+    color: #008800;
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+    padding: 5px 10px;
+}
+.form01SubmitsContainer {
+    background: url('{$_coreurl}images/form_submits_bg.jpg') repeat-x 0 50%;
+    border-top: 1px solid #e5e5e5;
+    border-right: 1px solid #dadada;
+    border-bottom: 1px solid #dadada;
+    /*clear: both;*/
+    padding: 5px 25px 5px 290px;
+}
+.form01PopupSubmitsContainer {
+    background: url('{$_coreurl}images/form_submits_bg.jpg') repeat-x 0 50%;
+    border-top: 1px solid #e5e5e5;
+    border-right: 1px solid #dadada;
+    border-bottom: 1px solid #dadada;
+    padding: 5px 25px 5px 290px;
+}
+.form01Submits {
+    height: 30px;
+}
+.form01SubmitsWorking {
+    display:none; 
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+    height: 30px;
+    line-height: 30px;
+}
+.form01FieldContainer {
+    background: #f3f8fa;
+    border-right: 1px solid #e1ecf2;
+    border-bottom: 1px solid #e1ecf2;
+    /*clear: both;*/
+    overflow: hidden;
+}
+.form01FieldTitle {
+    float: left;
+    padding: 5px 10px 5px 25px;
+    width: 250px;
+}
+.form01FieldError {
+    color: #aa0000;
+}
+.form01FieldMandatory {
+    color: #f00;
+    font-weight: bold;
+}
+.form01FieldField {
+    /*float: left;*/
+    padding: 5px 25px 5px 10px;
+    margin-left: 285px;
+}
+.form01FieldNote {
+    color: #aaa;
+    font-size: 11px;
+}
+.form01FieldPasswordInput, .form01FieldTextInput {
+    background: #e4f0f5;
+    border: 1px solid #b7d0e1;
+    font-size: 12px;
+    height: 18px;
+    line-height: 18px;
+    width: 220px;
+}
+.form01FieldTextareaInput {
+    background: #e4f0f5;
+    border: 1px solid #b7d0e1;
+    font-size: 12px;
+    height: 80px;
+    line-height: 18px;
+    width: 420px;
+}
+.form01FieldSelectInput {
+    background: #e4f0f5;
+    border: 1px solid #b7d0e1;
+    font-size: 12px;
+}
+.form01FieldSelectOption {
+    background: #e4f0f5;
+    font-size: 12px;
+    height: 16px;
+    line-height: 16px;
+}
+.form01FieldSubmitInput {
+    background-image: url('{$_coreurl}images/control_bg.jpg'); 
+    background-position: 0 50%; 
+    border: 1px solid #b7d0e1; 
+    color: #000; 
+    cursor: pointer;
+    display: block;
+    font-size: 12px;
+    height: 24px;
+    max-width: 200px;
+    outline: none;
+    padding: 0 10px 0 10px;
+    text-decoration: none;
+}
+.form01FieldSubmitInput:hover {
+    background-position: 200px 50%; 
+    color: #004473;
+}
+.form01FieldsGroupTitle {
+    background: url('{$_coreurl}images/form_group_title_bg.jpg') repeat-x 0 50%;
+    border-left: 1px solid #707070;
+    border-right: 1px solid #707070;
+    border-top: 1px solid #707070;
+    color: #fff;
+    padding: 5px 10px;
+}
+.form01FieldsGroupContainer {
+}
+
+/* Titles */
+.backendTitle01 {
+    background: url('{$_coreurl}images/title_01_bg.jpg') repeat-x #f3f3f3;
+    height: 50px;
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+    line-height: 50px;
+}
+
+/* Panels */
+.backendPanel01 {
+    background: url("{$_coreurl}images/title_01_bg.jpg") repeat-x scroll 0 50% #F3F3F3;
+    height: 36px;
+    width: 100%;
+}
+
+/* Grid 01 */
+.grid01Title {
+    background-color: #003366;
+    background-image: url('{$_coreurl}images/grid_title_bg.jpg');
+    background-position: 0 50%;
+    background-repeat: repeat-x;
+    border-bottom: 1px solid #003B5E;
+    border-top: 1px solid #7fa4bc;
+    border-left: 1px solid #7fa4bc;
+    border-right: 1px solid #003B5E;
+    color: #fff;
+    font-family: arial, helvetica, san-serif;
+    font-size: 16px;
+    font-weight: bold;
+    height: 28px;
+    line-height: 28px;
+    padding: 5px 10px;
+}
+.grid01Columns {
+    height: 40px;
+}
+.grid01ColumnTitle {
+    background-image: url('{$_coreurl}images/grid_column_title_bg.jpg');
+    background-position: 0 0;
+    background-repeat: repeat-x;
+    border-top: 1px solid #bdbdbd;
+    border-left: 1px solid #bdbdbd;
+    border-right: 1px solid #5e5e5e;
+    border-bottom: 1px solid #5e5e5e;
+    color: #fff;
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+    padding: 0px 10px;
+}
+.grid01ColumnTitle a.dgItemColContentTitleOrder {
+    color: #fff;
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+    text-decoration: underline;
+}
+.grid01ColumnTitle:hover {
+    background-position: 0 -40px;
+}
+.grid01Item {
+    background: #f3f8fa;
+}
+.grid01Item:hover {
+    background: #edf3f5;
+}
+.grid01ItemColumn {
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #e1ecf2;
+    border-bottom: 1px solid #c4e0f2;
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+    padding: 5px 10px;
+    word-wrap: break-word;
+}
+.grid01Empty {
+    background: #f3f8fa;
+    border: 1px solid #e1ecf2;
+    padding: 5px 10px;
+}
+.grid01ControlsOtherContainer {
+    margin-top: 10px;
+}
+.grid01Pagination {
+    background: #F3F8FA;
+    border-top: 1px solid #FFFFFF;
+    border-right: 1px solid #E1ECF2;
+    border-bottom: 1px solid #C4E0F2;
+    border-left: 1px solid #FFFFFF;
+    padding: 10px 5px;
+    /* text-align: right; */
+}
+.grid01PaginationPrev {
+    color: #002748;
+    display: inline;
+    padding: 5px;
+}
+.grid01PaginationItemOn {
+    background: #B7D0E1;
+    color: #002748;
+    display: inline;
+    padding: 5px;
+}
+.grid01PaginationSkip {
+    display: inline;
+    padding: 5px;
+}
+.grid01PaginationItemOff {
+    color: #002748;
+    display: inline;
+    padding: 5px;
+}
+.grid01PaginationNext {
+    color: #002748;
+    display: inline;
+    padding: 5px;
+}
+.grid01PaginationPrev:hover, .grid01PaginationItemOff:hover, .grid01PaginationNext:hover {
+    background: #cbe6fa;
+}
+
+/* controls overall design */
+.backendCtrlTable {
+    border-collapse: collapse;
+    display: table;
+}
+.backendCtrlTr {
+    display: table-row;
+}
+.backendCtrlTd {
+    display: table-cell;
+    padding: 0;
+}
+.backendCtrlIcon {
+    display: block;
+}
+
+/* controls */
+.controlContainer {
+    background-image: url('{$_coreurl}images/control_bg.jpg'); 
+    background-position: 0 50%; 
+    border: 1px solid #b7d0e1; 
+    display: inline-block; 
+    max-width: 200px;
+    outline: none;
+    text-decoration: none;
+}
+.controlContainer:hover {
+    border: 1px solid #b7d0e1;
+    display: inline-block;
+    max-width: 200px;
+    outline: none;
+    text-decoration: none;
+}
+.controlTitleSmall {
+    color: #000; 
+    font-family: arial, helvetica, san-serif;
+    font-size: 10px;
+    height: 24px;
+    padding: 0 5px 0 5px;
+    vertical-align: middle;
+}
+.controlTitleNormal {
+    color: #000; 
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+    height: 32px;
+    padding: 0 10px 0 10px;
+    vertical-align: middle;
+}
+.controlContainer:hover .controlTitleSmall, .controlContainer:hover .controlTitleNormal {
+    color: #004473;
+}
+.controlContainer:hover {
+    background-position: 200px 50%; 
+}
+.controlIconSmall {
+    display: block;
+    height: 24px;
+    width: 24px;
+}
+.controlIconNormal {
+    display: block;
+    height: 32px;
+    width: 32px;
+}
+
+/* common icons */
+.backendItemFolder {
+    background: url('{$_coreurl}images/icon_folder.png');
+    height: 32px;
+    width: 32px;
+}
+.backendItemPage {
+    background: url('{$_coreurl}images/icon_page.png');
+    height: 32px;
+    width: 32px;
+}
+
+.backendItemFolderInvisible {
+    background: url('{$_coreurl}images/icon_folder_invisible.png');
+    height: 32px;
+    width: 32px;
+}
+.backendItemPageInvisible {
+    background: url('{$_coreurl}images/icon_page_invisible.png');
+    height: 32px;
+    width: 32px;
+}
+.backendItemFolderPlus {
+    background: url('{$_coreurl}images/icon_folder_plusminus.png');
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+}
+.backendItemPagePlus {
+    background: url('{$_coreurl}images/icon_page_plusminus.png');
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+}
+
+.backendItemFolderInvisiblePlus {
+    background: url('{$_coreurl}images/icon_folder_invisible_plusminus.png');
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+}
+.backendItemPageInvisiblePlus {
+    background: url('{$_coreurl}images/icon_page_invisible_plusminus.png');
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+}
+.backendItemFolderMinus {
+    background: url('{$_coreurl}images/icon_folder_plusminus.png') 0 -32px;
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+}
+.backendItemPageMinus {
+    background: url('{$_coreurl}images/icon_page_plusminus.png') 0 -32px;
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+}
+
+.backendItemFolderInvisibleMinus {
+    background: url('{$_coreurl}images/icon_folder_invisible_plusminus.png') 0 -32px;
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+}
+.backendItemPageInvisibleMinus {
+    background: url('{$_coreurl}images/icon_page_invisible_plusminus.png') 0 -32px;
+    cursor: pointer;
+    height: 32px;
+    width: 32px;
+}
+
+/* popup */
+.backendPopup01 {
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+    color: #000; 
+    background: #f3f8fa; 
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #e1ecf2;
+    border-bottom: 1px solid #c4e0f2;
+}

@@ -1,0 +1,1 @@
+<input type="checkbox" name="{$name}" id="{$id}" value="{$significance}"{?$class} class="{$class}"{/?}{?$value} checked{/?}>

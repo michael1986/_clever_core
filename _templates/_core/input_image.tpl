@@ -1,0 +1,1 @@
+<input type="image" src="{?$src}{$src}{!}{$_coreurl}images/dot.gif{/?}" name="{$name}" id="{$id}" value="{$value}"{?$class} class="{$class}"{/?}>

@@ -1,0 +1,9 @@
+{?$plugin_overwhelm}
+    {$plugin_overwhelm}
+{!}
+    {@mode_grid_title.tpl}
+    {@mode_grid_categories.tpl}
+    {@mode_grid_filters.tpl}
+    {@mode_grid_data.tpl}
+    {@mode_grid_pagination.tpl}
+{/?}

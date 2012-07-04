@@ -1,0 +1,1 @@
+<div id="{$prefix_data_grid}DataGrid">

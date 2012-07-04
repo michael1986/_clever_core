@@ -1,0 +1,109 @@
+#DebugWindowContainer {
+    border: 1px solid #333333;
+    bottom: 0;
+    height: 400px;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    right: 0;
+    width: 95%;
+    z-index: 5000;
+}
+#DebugWindowContainerSmall {
+    font-family: arial;
+    font-size: 12px;
+    background: #333333;
+    color: #CCCCCC;
+    display: block;
+    position: fixed;
+    bottom: 1px;
+    right: 22px;
+    height: 20px;
+    line-height: 18px;
+    text-align: center;
+    text-decoration: none;
+    width: 20px;
+    z-index: 5000;
+}
+#DebugResetCacheBtn {
+    font-family: arial;
+    font-size: 14px;
+    background: #333333;
+    color: #CCCCCC;
+    float: left;
+    border: 1px solid #CCCCCC;
+    display: block;
+    width: 20px;
+    height: 20px;
+    line-height: 18px;
+    text-align: center;
+    text-decoration: none;
+    margin-right: 2px; 
+}
+#DebugHideBtn {
+    font-family: arial;
+    font-size: 14px;
+    background: #333333;
+    color: #CCCCCC;
+    float: left;
+    border: 1px solid #CCCCCC;
+    display: block;
+    width: 20px;
+    height: 20px;
+    line-height: 18px;
+    text-align: center;
+    text-decoration: none;
+    margin-right: 10px; 
+}
+#DebugShowBtn {
+    font-family: arial;
+    font-size: 14px;
+    background: #333333;
+    color: #CCCCCC;
+    display: block;
+    position: fixed;
+    bottom: 1px;
+    right: 1px;
+    width: 20px;
+    height: 20px;
+    line-height: 18px;
+    text-align: center;
+    text-decoration: none;
+    z-index: 5000;
+}
+#DebugWindowHeader {
+    font-family: arial;
+    font-size: 14px;
+    background: #333333;
+    color: #CCCCCC;
+    padding: 10px;
+    line-height: 20px;
+}
+#DebugWindowMessages {
+    font-family: arial;
+    font-size: 11px;
+    background: #CCCCCC;
+    padding: 10px;
+    height: 340px;
+    overflow: auto;
+}
+.debugError {
+    font-family: arial;
+    font-size: 11px;
+    color: #BB3333;
+}
+.debugMessage {
+    font-family: arial;
+    font-size: 11px;
+    color: #333333;
+}
+.debugVarContainer {
+    border: 1px solid #333333;
+    background: #CCCCCC;
+    color: #333333;
+    font-family: arial;
+    font-size: 12px;
+    padding: 10px;
+    text-decoration: none;
+}
+

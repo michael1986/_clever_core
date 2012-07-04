@@ -1,0 +1,1 @@
+<input type="radio" id="{$id}" name="{$name}" value="{$value}"{?$selected} checked="checked"{/?}{?$class} class="{$class}"{/?}>
