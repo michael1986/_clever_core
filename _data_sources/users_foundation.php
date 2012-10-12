@@ -13,7 +13,8 @@ class users_foundation extends _db_table {
     /**
     * Wether or not login is email
     */
-    protected $login_email = false;
+    protected $login_email = true;
+    protected $password_md5 = false;
 
     protected $_fields = array(
         'user_id' => array(
@@ -98,7 +99,7 @@ class users_foundation extends _db_table {
         }
         return $this->_arow($where, $mode);
     }
-    
+
     /**
     * если добавляем нового пользователя, то добавляем данные и в связанных датасорцах по user_levels
     */
@@ -127,6 +128,9 @@ class users_foundation extends _db_table {
             $this->_update($values['user_id'], $update);
         }
         else {
+            if ($this->password_md5) {
+                $values['user_password'] = md5($values['user_password']);
+            }
             $values['user_id'] = parent::_insert($values);
         }
 
@@ -182,6 +186,9 @@ class users_foundation extends _db_table {
             }
         }
 
+        if (isset($values['user_password']) && $this->password_md5) {
+            $values['user_password'] = md5($values['user_password']);
+        }
         return parent::_update($where, $values, $update_all_possible);
     }
 
@@ -200,6 +207,12 @@ class users_foundation extends _db_table {
         }
     }
 
+    /**
+    * Is password MD5-crypted in the database?
+    */
+    public function is_password_md5() {
+        return $this->password_md5;
+    }
 }
 
 

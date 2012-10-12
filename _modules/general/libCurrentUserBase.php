@@ -179,6 +179,9 @@ class libCurrentUserBase extends _module {
 
     public function validate_user($values) {
         if ($values) {
+            if (is_array($values) && isset($values['user_password']) && $this->users->is_password_md5()) {
+                $values['user_password'] = md5($values['user_password']);
+            }
             return $this->users->_where($this->validate_user_where())->_row($values, 'user_id');
         }
         else {

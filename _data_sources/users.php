@@ -8,6 +8,8 @@
 _cc::load_data_source('users_foundation');
 
 class users extends users_foundation {
+    // protected $login_email = false;
+    // protected $password_md5 = true;
 }
 
 
