@@ -204,7 +204,7 @@ class back_pages extends db_table_tree {
         return $in;
     }
 
-    public function _adjust_db_output($in) {
+    public function _adjust_db_output($in, $mode = false) {
         if (isset($in['page_access_level'])) {
             $in['page_access_level'] = _get_bits($in['page_access_level']);
         }

@@ -36,4 +36,14 @@ function DataGridDesign(prefix) {
             $check.trigger('change');
         }
     });
+
+    $('#' + DataGridDesign.prefix + 'DataGrid .itemCheckbox').die('change').live('change', function (e) {
+        if ($('#' + DataGridDesign.prefix + 'DataGrid .itemCheckbox:checked').length) {
+            $('#' + DataGridDesign.prefix + 'DataGridControlsRows').fadeIn(200);
+        }
+        else {
+            $('#' + DataGridDesign.prefix + 'DataGridControlsRows').fadeOut(200);
+        }
+    });
+
 }

@@ -13,7 +13,13 @@ class fieldSelectForeignTree extends fieldSelect {
 
     function __construct($data = array()) {
         parent::__construct($data);
-        $ds = $this->_get_data_source($this->foreign_table);
+
+        if (is_string($this->foreign_table)) {
+            $ds = $this->_get_data_source($this->foreign_table);
+        }
+        else {
+            $ds = $this->foreign_table;
+        }
         if (!$this->values) {
             $this->values = $ds->_get_primary_key();
         }

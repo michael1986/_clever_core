@@ -35,6 +35,8 @@ class _fields_foundation extends _data_source {
      */
     protected $__sort_field_name = false;
 
+    static protected $fields_path = 'general/fields/';
+
     /**
      * @ignore
      *
@@ -289,7 +291,25 @@ class _fields_foundation extends _data_source {
         return $prefix;
     }
 
-    public function __line_up_fields($fields, &$fields_modules_map, &$__id_counter) {
+    public static function __get_module_name($field) {
+        if (is_array($field)) {
+            if (isset($field['module'])) {
+                return $field['module'];
+            }
+            else if (isset($field['type'])) {
+                $type = $field['type'];
+            }
+            else {
+                $type = 'text';
+            }
+        }
+        else {
+            $type = $field;
+        }
+        return self::$fields_path . 'field' . implode('', array_map('ucfirst', explode('_', $type)));
+    }
+
+    public static function __line_up_fields($fields, &$fields_modules_map, &$__id_counter) {
         $ret = array();
         foreach ($fields as $key => &$field) {
             $field = _adjust_field_description($key, $field);

@@ -158,6 +158,7 @@ abstract class _db_table_foundation extends _fields {
     * @var boolean
     */
     protected $__result_as_columns = false;
+
     /**#@-*/
 
     /**
@@ -320,11 +321,12 @@ abstract class _db_table_foundation extends _fields {
             );
         }
         unset($ds);
-
+        /*
         if (!sizeof($this->_cleanup_settings['binary_fields']) && !sizeof($this->_cleanup_settings['data_sources'])) {
             // to avoid extra SQL query without necessity
             $this->_cleanup_settings = false;
         }
+        */
     }
 
     /*****************************************************************
@@ -554,14 +556,19 @@ abstract class _db_table_foundation extends _fields {
     */
     public function _get_row_title($row) {
         if (is_numeric($row)) { // ID is given
-            $row = $this->_adjusted_row($row);
+            $row = $this->_arow($row);
         }
 
-        return 
-            isset($row[$this->_prefix_fields . 'title'])?
-                $row[$this->_prefix_fields . 'title']
-                :
-                'Record ID: ' . $row[$this->_get_primary_key()];
+        if ($row) {
+            return
+                isset($row[$this->_prefix_fields . 'title'])?
+                    $row[$this->_prefix_fields . 'title']
+                    :
+                    'Record ID: ' . $row[$this->_get_primary_key()];
+        }
+        else {
+            return false;
+        }
     }
 
     public function _activate($where) {
@@ -613,8 +620,9 @@ abstract class _db_table_foundation extends _fields {
             trim($this->__generate_columns()) != '*'
         ) {
             // experemental 2011-09-16
-            // $sql = $this->_generate_sql();
-            $sql = $this->_reset_columns()->_columns($this->_get_primary_key())->_generate_sql();
+            // 2012-09-19 experiment failed: we had reference to pseudo columns inside _having
+            $sql = $this->_generate_sql();
+            // $sql = $this->_reset_columns()->_columns($this->_get_primary_key())->_generate_sql();
             // EOF experemental 2011-09-16
             $q = $this->_db->_query('select count(*) from (' . $sql . ') as t');
             $res = $this->_db->_fetch_num($q);
@@ -769,6 +777,16 @@ abstract class _db_table_foundation extends _fields {
     }
 
     /**
+     * Возвращает ID строки, попадающей под условие $where
+     *
+     * @param mixed $where
+     * @return string|object
+     */
+    public function _id($where = false) {
+        return $this->_row($where, $this->_get_alias() . '.' . $this->_get_primary_key());
+    }
+
+    /**
     * Возвращает массив ID для строк, попадающих под условие $where
     * 
     * @param mixed $where
@@ -898,6 +916,12 @@ abstract class _db_table_foundation extends _fields {
                         $field['adjust_output'] = array($field['adjust_output']);
                     }
                     for ($i = 0; $i < sizeof($field['adjust_output']); $i++) {
+                        if ($field['adjust_output'][$i] === true) {
+                            $field['adjust_output'][$i] = '_adjust_output';
+                            if (!isset($field['adjust_output_class'])) {
+                                $field['adjust_output_class'] = _fields::__get_module_name($field);
+                            }
+                        }
                         if (isset($field['adjust_output_class']) || method_exists($this, $field['adjust_output'][$i])) {
                             if (isset($field['adjust_output_class'])) {
                                 if (is_array($field['adjust_output_class'])) {
@@ -1068,7 +1092,7 @@ abstract class _db_table_foundation extends _fields {
                     $ins .= ',';
                     $vals .= ',';
                 }
-                $ins .= '`' . $key . '`';
+                $ins .= $this->_db->_screen_key($key);
                 $vals .= '\'' . $this->_db->_escape($val) . '\'';
             }
         }
@@ -1097,8 +1121,8 @@ abstract class _db_table_foundation extends _fields {
     * @param array $values ассоциативный массив со значениями; будут использованы только те ключи, которые существуют в качестве имен полей в $this->_fields
     * @return object $this
     */
-    public function _update($where = false, $values = array()) {
-        return $this->_low_update($where, $values);
+    public function _update($where = false, $values = array(), $update_all_possible = false) {
+        return $this->_low_update($where, $values, $update_all_possible);
     }
 
     /**
@@ -1109,7 +1133,7 @@ abstract class _db_table_foundation extends _fields {
     * @param array $values ассоциативный массив со значениями; будут использованы только те ключи, которые существуют в качестве имен полей в $this->_fields
     * @return object $this
     */
-    public function _low_update($where = false, $values = array()) {
+    public function _low_update($where = false, $values = array(), $update_all_possible = false) {
         // update 'modify' fields
         // TODO: добавить обновление поля modified при изменении данных из подчиненных таблиц
 //        for ($i = 0; $i < sizeof($this->_fields); $i++) {
@@ -1155,7 +1179,7 @@ abstract class _db_table_foundation extends _fields {
                 if ($vals) {
                     $vals .= ',';
                 }
-                $vals .= '`' . $key . '`' . '=\'' . $this->_db->_escape($val) . '\'';
+                $vals .= $this->_db->_screen_key($key) . '=\'' . $this->_db->_escape($val) . '\'';
             }
         }
         if ($vals) {
@@ -1169,7 +1193,7 @@ abstract class _db_table_foundation extends _fields {
             }
 
             $sql_where = $this->__generate_where();
-            if ($sql_where) {
+            if ($update_all_possible || $sql_where) {
                 $update_sql = $update_sql . ' set ' . $vals . $sql_where;
 
                 $this->_db->_query($update_sql, $this->__limit1_number, $this->__limit2_number);
@@ -1197,7 +1221,7 @@ abstract class _db_table_foundation extends _fields {
     * @return object $this
     */
     public function _delete($where = array(), $allow_truncate = false) {
-        if ($this->_cleanup_settings || $this->_force_cleanup) {
+        if ($this->_cleanup_settings['data_sources'] || $this->_cleanup_settings['binary_fields'] || $this->_force_cleanup) {
             $this->_save_snapshot('delete');
             $data_lines = $this->_rows($where);
             $this->_restore_snapshot('delete');
@@ -2114,7 +2138,7 @@ abstract class _db_table_foundation extends _fields {
                 }
                 $where_array[] = array(
                     'alias' => $table,
-                    'expression' => '`' . $key . '` ' . $operator . ' ' . $inline_val,
+                    'expression' => $this->_db->_screen_key($key) . ' ' . $operator . ' ' . $inline_val,
                     'operator' => $operator,
                     'field' => $key,
                     'value' => $val
@@ -2125,7 +2149,7 @@ abstract class _db_table_foundation extends _fields {
         if (sizeof($primary_key_values) == 1) {
             $where_array[] = array(
                 'alias' => $this->_get_alias(), // $this->_table,
-                'expression' => '`' . $this->_get_primary_key() . '` = ' . '\'' . $this->_db->_escape($primary_key_values[0]) . '\'',
+                'expression' => $this->_db->_screen_key($this->_get_primary_key()) . ' = ' . '\'' . $this->_db->_escape($primary_key_values[0]) . '\'',
                 'operator' => '=',
                 'field' => $this->_get_primary_key(),
                 'value' => $primary_key_values[0]
@@ -2134,7 +2158,7 @@ abstract class _db_table_foundation extends _fields {
         else if (sizeof($primary_key_values) > 1) {
             $where_array[] = array(
                 'alias' => $this->_get_alias(), // $this->_table,
-                'expression' => '`' . $this->_get_primary_key() . '` in (\'' . implode('\',\'', $this->_db->_array_map('_escape', $primary_key_values)) . '\')',
+                'expression' => $this->_db->_screen_key($this->_get_primary_key()) . ' in (\'' . implode('\',\'', $this->_db->_array_map('_escape', $primary_key_values)) . '\')',
                 'operator' => 'in',
                 'field' => $this->_get_primary_key(),
                 'value' => $primary_key_values
@@ -2573,7 +2597,7 @@ abstract class _db_table_foundation extends _fields {
     * 
     * @param mixed $class_name
     */
-    public function __autocreate($class_name) {
+    public static function __autocreate($class_name) {
         if (!file_exists(__LOCALE_DATA_SOURCES_PATH . $class_name . '.php')) {
             if (
                 $fp = @fopen(__LOCALE_DATA_SOURCES_PATH . $class_name . '.php', 'w')

@@ -55,7 +55,7 @@ class user_session_data extends _db_table {
     }
     */
     public function adjust_before_usage($value) {
-        if ($value == 'F') {
+        if ($value[0] == 'F') {
             return file_get_contents($this->binary_path . substr($value, 1));
         }
         else {

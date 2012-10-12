@@ -13,7 +13,8 @@ function DataGrid(data) {
     });
 
     var DataGridInstance = this;
-    $('#' + DataGridInstance.prefixDataGrid + 'DataGrid')
+    // $('#' + DataGridInstance.prefixDataGrid + 'DataGrid')
+    $('body')
 		.off('click', '.' + DataGridInstance.prefixDataGrid + 'DGCtrlRows')
 		.on('click', '.' + DataGridInstance.prefixDataGrid + 'DGCtrlRows', function (e) {
 			var id = '';
@@ -34,7 +35,8 @@ function DataGrid(data) {
 				return false;
 			}
 		});
-    $('#' + DataGridInstance.prefixDataGrid + 'DataGrid')
+    // $('#' + DataGridInstance.prefixDataGrid + 'DataGrid')
+    $('body')
 		.off(
 			'click',
 			'a.' + DataGridInstance.prefixDataGrid + 'DGCtrlRow' +
@@ -66,16 +68,6 @@ function DataGrid(data) {
 			}
 		);
 
-    $('#' + DataGridInstance.prefixDataGrid + 'DataGrid')
-		.off('change', '.itemCheckbox')
-		.on('change', '.itemCheckbox', function (e) {
-			if ($('#' + DataGridInstance.prefixDataGrid + 'DataGrid .itemCheckbox:checked').length) {
-				$('#' + DataGridInstance.prefixDataGrid + 'DataGridControlsRows').fadeIn(200);
-			}
-			else {
-				$('#' + DataGridInstance.prefixDataGrid + 'DataGridControlsRows').fadeOut(200);
-			}
-		});
 
     $('#' + DataGridInstance.prefixDataGrid + 'DataGrid')
 		.off('click', '#' + DataGridInstance.prefixDataGrid + 'DataGridCheckAll')

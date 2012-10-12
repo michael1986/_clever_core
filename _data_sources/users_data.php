@@ -56,7 +56,7 @@ class users_data extends _db_table {
     * Если среди ключей $values нет user_id, то считается, что пользователь регистрируется первый 
     * раз и для него создается запись в датасорце user
     */
-    public function _insert($values) {
+    public function _insert($values = array()) {
         if (isset($values['user_id'])) {
             $values[$this->_get_primary_key()] = $values['user_id'];
         }
@@ -80,14 +80,14 @@ class users_data extends _db_table {
     /**
     * Обновление данных о пользователе в данном датасорце и в users
     */
-    public function _update($where, $values) {
+    public function _update($where = false, $values = array(), $update_all_possible = false) {
         if ($this->prevent_recursion_flag) {
             $this->prevent_recursion(false);
-            return parent::_update($where, $values);
+            return parent::_update($where, $values, $update_all_possible);
         }
         else {
             $ids = $this->_ids($where);
-            $this->users->_update($ids, $values);
+            $this->users->_update($ids, $values, $update_all_possible);
         }
         return $this;
     }

@@ -46,10 +46,14 @@ class modDataGrid extends _module {
     protected $prefix_callbacks = '';
     protected $prefix_cookies = '';
 
-    protected $param_mode = 'mode';
-    protected $param_action = 'act';
-    protected $param_page = 'dg_page';
-    protected $param_id = 'id';
+    protected $param_mode_default = 'mode';
+    protected $param_mode = false;
+    protected $param_action_default = 'act';
+    protected $param_action = false;
+    protected $param_page_default = 'dg_page';
+    protected $param_page = false;
+    protected $param_id_default = 'id';
+    protected $param_id = false;
 
     protected $use_cookie_page = false;
     /**
@@ -58,7 +62,8 @@ class modDataGrid extends _module {
     * 
     * @var mixed
     */
-    public $param_is_ajax_request = 'is_ajax';
+    public $param_is_ajax_request_default = 'is_ajax';
+    public $param_is_ajax_request = false;
 
     protected $cookie_param_copycut_id = 'copycut_id';
     protected $cookie_param_copycut_type = 'copycut_type';
@@ -515,11 +520,21 @@ class modDataGrid extends _module {
             }
 
             // добавляем префикс ко всем параметрам, которые будем использовать
-            $this->param_mode = $this->prefix_params . $this->param_mode;
-            $this->param_action = $this->prefix_params . $this->param_action;
-            $this->param_id = $this->prefix_params . $this->param_id;
-            $this->param_page = $this->prefix_params . $this->param_page;
-            $this->param_is_ajax_request = $this->prefix_params . $this->param_is_ajax_request;
+            if (!$this->param_mode) {
+                $this->param_mode = $this->prefix_params . $this->param_mode_default;
+            }
+            if (!$this->param_action) {
+                $this->param_action = $this->prefix_params . $this->param_action_default;
+            }
+            if (!$this->param_id) {
+                $this->param_id = $this->prefix_params . $this->param_id_default;
+            }
+            if (!$this->param_page) {
+                $this->param_page = $this->prefix_params . $this->param_page_default;
+            }
+            if (!$this->param_is_ajax_request) {
+                $this->param_is_ajax_request = $this->prefix_params . $this->param_is_ajax_request_default;
+            }
 
             $this->cookie_param_copycut_id = $this->prefix_cookies . $this->cookie_param_copycut_id;
             $this->cookie_param_copycut_type = $this->prefix_cookies . $this->cookie_param_copycut_type;
@@ -2353,7 +2368,7 @@ class modDataGrid extends _module {
     }
 
     /**
-    * втроенный метод вставки данных
+    * встроенный метод вставки данных
     */
     public function paste() {
         $this->initialize();

@@ -145,7 +145,9 @@ class modBackDataGridTree extends modBackDataGrid {
     }
 
     protected $first_row_id = array();
-    protected function get_first_row_id($parent_id) {
+    protected function get_first_row_id() {
+        $args = func_get_args();
+        $parent_id = $args[0];
         if (!isset($this->first_row_id[$parent_id])) {
             $rows = $this->data_source->rows_univariate();
             $all_ids = _array_values($rows, $this->data_source->_get_primary_key());
@@ -156,7 +158,9 @@ class modBackDataGridTree extends modBackDataGrid {
     }
 
     protected $last_row_id = array();
-    protected function get_last_row_id($parent_id) {
+    protected function get_last_row_id() {
+        $args = func_get_args();
+        $parent_id = $args[0];
         if (!isset($this->last_row_id[$parent_id])) {
             $rows = $this->data_source->rows_univariate();
             $all_ids = _array_values($rows, $this->data_source->_get_primary_key());

@@ -28,7 +28,7 @@ class modDGPluginFilters extends modDGPluginBase {
                 )
             );
             $this->form = $this->_module($this->module_form, array(
-                'prefix_params' => 'fltr_',
+                'prefix_params' => $this->prefix_params . 'fltr_',
                 'method' => 'get',
                 'fields' => $this->fields,
                 'submits' => $submits,

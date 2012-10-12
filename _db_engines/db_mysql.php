@@ -9,8 +9,13 @@
 * Работа с MySQL
 */
 class db_mysql extends _db_engine {
-    public function _connect($hostname, $username, $password) {
-        return @mysql_connect($hostname, $username, $password, true);
+    public function __construct($data = array()) {
+        parent::__construct($data);
+        $this->_query("set names 'utf8'");
+    }
+
+    public function _connect() {
+        return @mysql_connect($this->_hostname, $this->_username, $this->_password, true);
     }
     public function _select_db($basename) {
         return @mysql_select_db($basename);
@@ -55,6 +60,9 @@ class db_mysql extends _db_engine {
         else if($limit2) {
             return ' limit 0, ' . $limit2;
         }
+    }
+    public function _screen_key($key) {
+        return '`' . $key . '`';
     }
 }
 

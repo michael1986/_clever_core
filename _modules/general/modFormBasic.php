@@ -100,7 +100,7 @@ class modFormBasic extends _module {
     * Переменные для работы с полями
     * внутренние переменные, нельзя инициализировать
     */
-    protected $fields_path = 'general/fields/';
+    // protected $fields_path = 'general/fields/';
     protected $fields_modules = false;
     protected $fields_modules_map = array();
     protected $submits_modules = false;
@@ -417,7 +417,7 @@ class modFormBasic extends _module {
 
         $tpl_data['hidden_fields'] = array();
         foreach ($hidden_params as $param_name => $param_value) {
-            $field_hidden_mod = $this->_module($this->fields_path . 'fieldHidden', array(
+            $field_hidden_mod = $this->_module(_fields::__get_module_name('hidden'), array( //$this->fields_path . 'fieldHidden', array(
                 'name'  => $param_name,
                 'id' => $this->prefix_params . $param_name
             ));
@@ -427,7 +427,7 @@ class modFormBasic extends _module {
         }
 
         // переменная сигнализирует о том что форма отправлена
-        $field_hidden_mod = $this->_module($this->fields_path . 'fieldHidden', array(
+        $field_hidden_mod = $this->_module(_fields::__get_module_name('hidden'), array( //$this->fields_path . 'fieldHidden', array(
             'name'  => $this->param_form_sent,
             'id' => $this->param_form_sent
         ));
@@ -492,7 +492,8 @@ class modFormBasic extends _module {
 
         if ($fields) {
             $this->fields_modules_map = array();
-            $this->fields_plain = _fields::__line_up_fields($fields, $this->fields_modules_map, $__id_counter = 0);
+            $__id_counter = 0;
+            $this->fields_plain = _fields::__line_up_fields($fields, $this->fields_modules_map, $__id_counter);
             foreach ($this->fields_plain as $__id => &$field) {
                 $field['prefix'] = $this->prefix_params;
                 $field['js_form_instance'] = $this->get_js_instance();
@@ -507,7 +508,7 @@ class modFormBasic extends _module {
                         // По-умолчанию тип поля 'text'
                         $type = 'text';
                     }
-                    $field_module_name = $this->fields_path . 'field' . implode('', array_map('ucfirst', explode('_', $type)));
+                    $field_module_name = _fields::__get_module_name($type);// $this->fields_path . 'field' . implode('', array_map('ucfirst', explode('_', $type)));
                 }
                 $this->fields_modules[$__id] = $this->_module($field_module_name, $field);
 
@@ -543,7 +544,7 @@ class modFormBasic extends _module {
     */
     protected function prepare_submits() {
         if ($this->submits_modules === false) {
-            $submit_module_name = $this->fields_path . 'fieldSubmit';
+            $submit_module_name = _fields::__get_module_name('submit'); // $this->fields_path . 'fieldSubmit';
             foreach ($this->submits as $submit => $description) {
                 if (is_numeric($submit)) {
                     $submit = $description;

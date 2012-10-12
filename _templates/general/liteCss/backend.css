@@ -623,7 +623,7 @@ a.backendHref:hover {
     display: inline-block; 
     max-width: 200px;
     outline: none;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 .controlContainer:hover {
     border: 1px solid #b7d0e1;
@@ -639,6 +639,8 @@ a.backendHref:hover {
     height: 24px;
     padding: 0 5px 0 5px;
     vertical-align: middle;
+    outline: none;
+    text-decoration: none;
 }
 .controlTitleNormal {
     color: #000; 
@@ -647,12 +649,18 @@ a.backendHref:hover {
     height: 32px;
     padding: 0 10px 0 10px;
     vertical-align: middle;
+    outline: none;
+    text-decoration: none;
 }
 .controlContainer:hover .controlTitleSmall, .controlContainer:hover .controlTitleNormal {
     color: #004473;
+    outline: none;
+    text-decoration: none;
 }
 .controlContainer:hover {
-    background-position: 200px 50%; 
+    background-position: 200px 50%;
+    outline: none;
+    text-decoration: none;
 }
 .controlIconSmall {
     display: block;
@@ -748,4 +756,15 @@ a.backendHref:hover {
     border-left: 1px solid #fff;
     border-right: 1px solid #e1ecf2;
     border-bottom: 1px solid #c4e0f2;
+}
+
+/* Common styles */
+.backendGreen {
+    color: #00aa00;
+}
+.backendRed {
+    color: #aa0000;
+}
+.backendGray {
+    color: #999;
 }

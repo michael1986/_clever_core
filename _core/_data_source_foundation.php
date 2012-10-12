@@ -193,7 +193,7 @@ abstract class _data_source_foundation extends _core {
     * 
     * @param mixed $class_name имя класса
     */
-    public function __autocreate($class_name) {
+    public static function __autocreate($class_name) {
         if ($fp = @fopen(__LOCALE_DATA_SOURCES_PATH . $class_name . '.php', 'w')) {
             $code = "<?php\n" . _cc::create_tpl_from_string(file_get_contents(__ENGINE_DATA_SOURCE_TPLS_PATH, '_data_source_foundation.php.tpl'), array(
                 'class_name' => $class_name

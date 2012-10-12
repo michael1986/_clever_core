@@ -415,7 +415,7 @@ class tpl_engine_cc extends _tpl_engine {
             $current_char = $tpl[$pos];
             if ($current_char == '=') {
                 if ($mode == 'value') {
-                    _cc::fatal_error(__DEBUG_TPL, 'TPL Error. \',\' expecting instead of \'=\' inside inclusion parameters inside <b>' . $this->__name . '</b> template for <b>' . get_class($this->_get_holder()) . '</b> module');
+                    _cc::fatal_error(_DEBUG_TPL, 'TPL Error. \',\' expecting instead of \'=\' inside inclusion parameters inside <b>' . $this->__name . '</b> template for <b>' . get_class($this->_get_holder()) . '</b> module');
                 }
                 $mode = 'value';
                 $append_str = '';

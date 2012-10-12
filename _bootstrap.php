@@ -53,12 +53,14 @@ define('__ENGINE_TEMPLATES_PATH', _ENGINE_PATH . __TEMPLATES_DIR);
 define('__ENGINE_LOCALIZATION_PATH', _ENGINE_PATH . __LOCALIZATION_DIR);
 define('__ENGINE_TPL_ENGINES_PATH', _ENGINE_PATH . __TPL_ENGINES_DIR);
 define('__ENGINE_DB_ENGINES_PATH', _ENGINE_PATH . __DB_ENGINES_DIR);
+
 define('__LOCALE_MODULES_PATH', _LOCALE_PATH . __MODULES_DIR);
 define('__LOCALE_URL_CONVERTERS_PATH', _LOCALE_PATH . __URL_CONVERTERS_DIR);
 define('__LOCALE_DATA_SOURCES_PATH', _LOCALE_PATH . __DATA_SOURCES_DIR);
 define('__LOCALE_CONFIGS_PATH', _LOCALE_PATH . __CONFIGS_DIR);
 define('__LOCALE_TEMPLATES_PATH', _LOCALE_PATH . __TEMPLATES_DIR);
 define('__LOCALE_LOCALIZATION_PATH', _LOCALE_PATH . __LOCALIZATION_DIR);
+define('__LOCALE_DB_ENGINES_PATH', _LOCALE_PATH . __DB_ENGINES_DIR);
 define('__TMP_PATH', _LOCALE_PATH . __TMP_DIR);
 define('__TPL_CACHE_PATH', __TMP_PATH . __TPL_CACHE_DIR);
 
@@ -161,7 +163,12 @@ if (file_exists(_LOCALE_PATH . __CORE_DIR . '_db_engine.php')) {
 else {
     require_once(_ENGINE_PATH . __CORE_DIR . '_db_engine.php');
 }
-require_once(__ENGINE_DB_ENGINES_PATH . _DB_ENGINE . '.php');
+if (file_exists(__LOCALE_DB_ENGINES_PATH . _DB_ENGINE . '.php')) {
+    require_once(__LOCALE_DB_ENGINES_PATH . _DB_ENGINE . '.php');
+}
+else {
+    require_once(__ENGINE_DB_ENGINES_PATH . _DB_ENGINE . '.php');
+}
 
 define('_BASEURL', _get_baseurl());
 if (!defined('_COREURL')) {
@@ -175,7 +182,8 @@ $__routers = _cc::get_config('_routers');
 if (!sizeof($__routers)) {
     _cc::fatal_error('CC Error. Unable to find default router.');
 }
-$__rout_rule_default = reset(array_keys($__routers));
+$__roters_names = array_keys($__routers);
+$__rout_rule_default = reset($__roters_names);
 
 // find current router and __ROUT_RULE
 $__ccr = _read_param('__ccr');
@@ -212,6 +220,7 @@ else {
 // cleanup
 unset($__rout_rule);
 unset($__routers);
+unset($__roters_names);
 unset($__rout_rule_default);
 unset($__params_array);
 unset($__ccr);

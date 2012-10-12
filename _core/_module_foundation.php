@@ -156,7 +156,7 @@ class _module_foundation extends _core {
     * @return module this
     */
     public function _add_breadcrumb($title, $link = false, $siblings = array()) {
-        $this->__breadcrumbs[] = $this->_create_breadcrumb($title, $link, $siblings);
+        $this->_append_breadcrumbs(array($this->_create_breadcrumb($title, $link, $siblings)));
         return $this;
     }
 
@@ -169,17 +169,22 @@ class _module_foundation extends _core {
     * @return array
     */
     protected function _create_breadcrumb($title, $link = false, $siblings = array()) {
-        if ($link === false) {
-            $link = $this->_link();
+        if ($title === false) {
+            return false;
         }
-        else if (is_array($link)) {
-            $link = $this->_link($link);
+        else {
+            if ($link === false) {
+                $link = $this->_link();
+            }
+            else if (is_array($link)) {
+                $link = $this->_link($link);
+            }
+            return array(
+                'title' => $title,
+                'link' => $link,
+                'siblings' => $siblings
+            );
         }
-        return array(
-            'title' => $title,
-            'link' => $link,
-            'siblings' => $siblings
-        );
     }
 
     /**
@@ -190,7 +195,12 @@ class _module_foundation extends _core {
     */
     public function _append_breadcrumbs($breadcrumbs) {
         for ($i=0; $i < sizeof($breadcrumbs); $i++) {
-            $this->__breadcrumbs[] = $breadcrumbs[$i];
+            if ($breadcrumbs[$i] === false) {
+                array_pop($this->__breadcrumbs);
+            }
+            else {
+                $this->__breadcrumbs[] = $breadcrumbs[$i];
+            }
         }
         return $this;
     }
@@ -203,7 +213,12 @@ class _module_foundation extends _core {
     */
     public function _prepend_breadcrumbs($breadcrumbs) {
         for ($i = sizeof($breadcrumbs) - 1; $i >= 0; $i--) {
-            array_unshift($this->__breadcrumbs, $breadcrumbs[$i]);
+            if ($breadcrumbs[$i] === false) {
+                array_shift($this->__breadcrumbs);
+            }
+            else {
+                array_unshift($this->__breadcrumbs, $breadcrumbs[$i]);
+            }
         }
         return $this;
     }
@@ -235,8 +250,8 @@ class _module_foundation extends _core {
     * @param string param_name
     * @return mixed
     */
-    public function _read_sticky_param($param_name, $default_value = false) {
-        $param_value = _read_param($param_name, $default_value);
+    public function _read_sticky_param($param_name, $default_value = false, $disable_trim = false) {
+        $param_value = _read_param($param_name, $default_value, $disable_trim);
         $this->_stick_params(array(
             $param_name => $param_value
        ));

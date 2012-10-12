@@ -257,6 +257,9 @@ if (!function_exists('_overwhelm_response')) {
             switch ($content_type) {
                 case 'json':
                     $content_type = 'application/json';
+                    if (is_array($response)) {
+                        $response = json_encode($response);
+                    }
                     break;
             }
             header('Content-type: ' . $content_type);
@@ -486,20 +489,6 @@ if (!function_exists('_v')) {
     }
 }
 
-//if (!function_exists('_evde')) {
-    /**
-    * вывод дампа переменной на экран и прекращение работы
-    * расшифровка аббревиатуры EchoVarDumpExit
-    * 
-    * @param mixed $var
-    */
-    /*
-    function _evde($var) {
-        _evd($var);
-        _exit();
-    }
-    */
-//}
 
 if (!function_exists('_exit')) {
     function _exit($suppress_debug = false) {
@@ -510,46 +499,11 @@ if (!function_exists('_exit')) {
             if (_DEBUG_LEVEL & _DEBUG_SPEED) {
                 _cc::debug_message(_DEBUG_SPEED, 'Page generated in <b>' . _get_timer('_root') . '</b> seconds. Please note, some kind of debugging may increase execution time dramatically.');
             }
-            if (_DEBUG_LEVEL) {
-                _cc::debug_show();
-            }
+			_cc::debug_show();
         }
         exit;
     }
 }
-
-// if (!function_exists('_evd')) {
-    /**
-    * вывод дампа переменной на экран
-    * расшифровка аббревиатуры EchoVarDump
-    * 
-    * @param mixed $var
-    */
-    /*
-    function _evd($var) {
-        echo _vd($var);
-    }
-    */
-// }
-
-// if (!function_exists('_vd')) {
-    /**
-    * вывод дампа переменной в строку
-    * расшифровка аббревиатуры VarDump
-    * 
-    * @param mixed $var
-    */
-    /*
-    function _vd($var) {
-        $s = '<pre>';
-        _ob_start();
-        print_r($var);
-        $s .= _ob_get_clean();
-        $s .= '</pre>';
-        return $s;
-    }
-    */
-// }
 
 if (!function_exists('_simplest_filter')) {
     /**
@@ -1208,31 +1162,51 @@ if (!function_exists('_file_exists')) {
 * Функции для работы с параметрами на низком уровне
 */
 if (!function_exists('_read_param')) {
-    function _read_param($name, $default_value = false) {
+    function _read_param($name, $default_value = false, $disable_trim = false) {
         $post_value = _read_post_param($name);
         $get_value = _read_get_param($name);
-        // $cookie_value = _read_cookie_param($name);
         $file_value = _read_file_param($name);
         $router_value = _read_router_param($name);
         if ($post_value !== false) {
-            return $post_value;
+            $value = $post_value;
         }
         else if ($get_value !== false) {
-            return $get_value;
+            $value = $get_value;
         }
-        /* since 2011-07-11
-        else if ($cookie_value !== false) {
-            return $cookie_value;
-        }
-        */
         else if ($file_value !== false) {
-            return $file_value;
+            // if file force disable_trim, coz system data may contain spaces
+            $disable_trim = true;
+            $value = $file_value;
         }
         else if ($router_value !== false) {
-            return $router_value;
+            $value = $router_value;
         }
         else {
-            return $default_value;
+            $value = $default_value;
+        }
+
+        if ($disable_trim) {
+            return $value;
+        }
+        else {
+            if (is_array($value)) {
+                return _array_map('_trim', $value);
+            }
+            else {
+                return _trim($value);
+            }
+        }
+    }
+}
+
+if (!function_exists('_trim')) {
+    function _trim() {
+        $args = func_get_args();
+        if (is_string($args[0])) {
+            return call_user_func('trim', $args[0]);
+        }
+        else {
+            return $args[0];
         }
     }
 }
@@ -1353,6 +1327,19 @@ if (!function_exists('_param_fix_slashes')) {
         } else {
             return $value;
         }
+    }
+}
+
+if (!function_exists('_array_map')) {
+    function _array_map($func, $array) {
+        foreach ($array as $key => $val) {
+            if (is_array($array[$key])) {
+                $array[$key] = _array_map($func, $array[$key]);
+            } else {
+                $array[$key] = call_user_func($func, $val);
+            }
+        }
+        return $array;
     }
 }
 

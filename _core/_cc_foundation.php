@@ -16,7 +16,7 @@
 abstract class _cc_foundation {
     /**
     * Поиск и подключение модуля
-    * 
+    *
     * @param string $module_path Путь и название модуля, например, fields/field_text
     * @return boolean
     */
@@ -43,7 +43,7 @@ abstract class _cc_foundation {
 
     /**
     * Поиск и подключение конвертера URLов
-    * 
+    *
     * @param string $url_converter название конвертера, например, url_converter_frontend
     * @return boolean
     */
@@ -61,7 +61,7 @@ abstract class _cc_foundation {
 
     /**
     * Поиск, подключение и создание объекта модуля
-    * 
+    *
     * @param string $module Путь и название модуля, например, fields/field_text
     * @param array $data  Ассоциативный массив параметров, которые будут переданы модулю при создании
     * @param object $holder Объект модуля, который запрашивает создание нового модуля
@@ -122,7 +122,7 @@ abstract class _cc_foundation {
 
     /**
     * Преобразует GET параметры в фрагмент ссылки
-    * 
+    *
     * @param array $params
     * @return string
     */
@@ -216,7 +216,7 @@ abstract class _cc_foundation {
 
     /**
     * Создает объект роутера и записывает во внутреннее хранилище
-    * 
+    *
     * @param array $rule описание правила из главного конфига
     * @return _router
     */
@@ -241,7 +241,7 @@ abstract class _cc_foundation {
 
     /**
     * Поиск, подключение, создание и запуск объекта модуля
-    * 
+    *
     * @param string $module_name Название модуля
     * @param array $data Ассоциативный массив параметров, которые будут переданы модулю при создании
     * @param object $holder Объект модуля, который запрашивает создание нового модуля
@@ -249,7 +249,7 @@ abstract class _cc_foundation {
     */
     public static function execute_module($module_name, $data = array(), $holder = false) {
         return _cc
-           ::create_module($module_name, $data, $holder) 
+           ::create_module($module_name, $data, $holder)
            ->_run()
         ;
     }
@@ -257,7 +257,7 @@ abstract class _cc_foundation {
     /**
     * Создает единственный экземпляр модуля
     */
-    public function single_module($module_name) {
+    public static function single_module($module_name) {
         if (!isset($GLOBALS['__cc_globals']['__modules'])) {
             $GLOBALS['__cc_globals']['__modules'] = array();
         }
@@ -303,7 +303,7 @@ abstract class _cc_foundation {
     }
 
     /**
-    * может принимать не только ссылку на конфиг но и непосредственно конфигурацию - в последнем 
+    * может принимать не только ссылку на конфиг но и непосредственно конфигурацию - в последнем
     * случае кеширование объекта БД не произойдет
     */
     public static function create_db_engine($config_key) {
@@ -325,7 +325,7 @@ abstract class _cc_foundation {
 
     /**
     * Поиск и подключение данных
-    * 
+    *
     * @param string $data_name Название класса
     * @return void
     */
@@ -420,10 +420,11 @@ abstract class _cc_foundation {
 
             if (
                 self::is_release() ||
-                file_exists(__LOCALE_MODULES_PATH . $man_fn . '.php') || 
+                file_exists(__LOCALE_MODULES_PATH . $man_fn . '.php') ||
                 file_exists(__ENGINE_MODULES_PATH . $man_fn . '.php')
             ) {
-               if ($rout_rule == '_default' || reset(self::get_config('_routers')) == $man_fn) {
+                $routers = self::get_config('_routers');
+                if ($rout_rule == '_default' || reset($routers) == $man_fn) {
                     return '';
                 }
                 else {
@@ -476,13 +477,13 @@ abstract class _cc_foundation {
 
     /**
     * Выводит в отладочное окно или файл соответсвующее сообщение
-    * 
+    *
     * @param int $debug_level уровень отладки, при котором данное сообщение будет выводиться
     * @param string $message Сообщение
     * @param string $type Тип сообщения, например, 'message' (по-умолчанию), 'error'
-    * 
+    *
     * альтернативные параметры:
-    * 
+    *
     * @param string $message Сообщение
     */
     public static function debug_message($debug_level, $message = '', $type = '') {
@@ -514,9 +515,9 @@ abstract class _cc_foundation {
 
     /**
     * Возвращает название системы и ее версию
-    * 
+    *
     */
-    public function get_core_name() {
+    public static function get_core_name() {
         return $GLOBALS['_config']['__name'] . ' ' . $GLOBALS['_config']['__version'];
     }
 
@@ -524,74 +525,76 @@ abstract class _cc_foundation {
     * Используется внутри, выводит дебаг окно на экран
     */
     public static function debug_show() {
-        _ob_start();
-        // design and behaviour
-        echo '<link href="' . _COREURL . 'css/debug.css" rel="stylesheet" type="text/css" />';
-        echo '<script src="' . _COREURL . 'js/debug.js"></script>';
+        if (_DEBUG_LEVEL) {
+            _ob_start();
+            // design and behaviour
+            echo '<link href="' . _COREURL . 'css/debug.css" rel="stylesheet" type="text/css" />';
+            echo '<script src="' . _COREURL . 'js/debug.js"></script>';
 
-        $params = $_GET;
-        $params['__reset_cache'] = 'on';
+            $params = $_GET;
+            $params['__reset_cache'] = 'on';
 
-        // turn on debug window button
-        echo '<a href="' . _append_params(_get_url(), $params) . '" id="DebugWindowContainerSmall" title="Reset templates cache">X</a><a href="javascript:void(0)" onclick="showDebugWindow()" id="DebugShowBtn" title="Maximize Debug Window">&uarr;</a>';
+            // turn on debug window button
+            echo '<a href="' . _append_params(_get_url(), $params) . '" id="DebugWindowContainerSmall" title="Reset templates cache">X</a><a href="javascript:void(0)" onclick="showDebugWindow()" id="DebugShowBtn" title="Maximize Debug Window">&uarr;</a>';
 
-        // container start
-        echo '<div id="DebugWindowContainer">';
+            // container start
+            echo '<div id="DebugWindowContainer">';
 
-        // header
-        echo '<div id="DebugWindowHeader">';
-        echo '<a href="' . _append_params(_get_url(), $params) . '" id="DebugResetCacheBtn" title="Reset templates cache">X</a>';
-        echo '<a href="javascript:void(0)" onclick="hideDebugWindow()" id="DebugHideBtn" title="Minimize Debug Window">&darr;</a>';
-        echo self::get_core_name() . ': Debug Window';
-        echo '</div>';
+            // header
+            echo '<div id="DebugWindowHeader">';
+            echo '<a href="' . _append_params(_get_url(), $params) . '" id="DebugResetCacheBtn" title="Reset templates cache">X</a>';
+            echo '<a href="javascript:void(0)" onclick="hideDebugWindow()" id="DebugHideBtn" title="Minimize Debug Window">&darr;</a>';
+            echo self::get_core_name() . ': Debug Window';
+            echo '</div>';
 
-        echo '<div id="DebugWindowMessages">';
+            echo '<div id="DebugWindowMessages">';
 
-        $show_window = false;
-        for ($i = 0; $i < sizeof($GLOBALS['__debug']); $i++) {
-            if ($GLOBALS['__debug'][$i]['type'] == 'error') {
-                $show_window = true;
+            $show_window = false;
+            for ($i = 0; $i < sizeof($GLOBALS['__debug']); $i++) {
+                if ($GLOBALS['__debug'][$i]['type'] == 'error') {
+                    $show_window = true;
 
-                $dbt = $GLOBALS['__debug'][$i]['backtrace'];
-                array_shift($dbt);
-                array_shift($dbt);
-                $dbt_str = '';
-                foreach ($dbt as $dbt_line) {
-                    if (isset($dbt_line['file']) && isset($dbt_line['line'])) {
-                        $dbt_str .= '<br>File: ' . $dbt_line['file'] . '; line: ' . $dbt_line['line'];
+                    $dbt = $GLOBALS['__debug'][$i]['backtrace'];
+                    array_shift($dbt);
+                    array_shift($dbt);
+                    $dbt_str = '';
+                    foreach ($dbt as $dbt_line) {
+                        if (isset($dbt_line['file']) && isset($dbt_line['line'])) {
+                            $dbt_str .= '<br>File: ' . $dbt_line['file'] . '; line: ' . $dbt_line['line'];
+                        }
+                        else {
+                            $dbt_str .= '<br>File: undefined; line: undefined (call_user_func_array used?)';
+                        }
                     }
-                    else {
-                        $dbt_str .= '<br>File: undefined; line: undefined (call_user_func_array used?)';
-                    }
+                    echo '<p class="debugError">' . ($GLOBALS['__debug'][$i]['message'] . $dbt_str) . '</p>';
                 }
-                echo '<p class="debugError">' . ($GLOBALS['__debug'][$i]['message'] . $dbt_str) . '</p>';
+                else {
+                    echo '<p class="debugMessage">' . ($GLOBALS['__debug'][$i]['message']) . '</p>';
+                }
+            }
+            echo '</div>';
+
+            // container end
+            echo '</div>';
+            if ($show_window) {
+                echo '<script>showDebugWindow()</script>';
             }
             else {
-                echo '<p class="debugMessage">' . ($GLOBALS['__debug'][$i]['message']) . '</p>';
+                echo '<script>hideDebugWindow()</script>';
             }
-        }
-        echo '</div>';
 
-        // container end
-        echo '</div>';
-        if ($show_window) {
-            echo '<script>showDebugWindow()</script>';
-        }
-        else {
-            echo '<script>hideDebugWindow()</script>';
-        }
-
-        $debug_html = _ob_get_clean();
-        if (defined('_DEBUG_OUTPUT_FILE')) {
-            $i = 0;
-            do {
-                $fn = _DEBUG_OUTPUT_FILE . '-' . time() . '-' . _leading_zero($i, 3) . '.html';
-                $i++;
-            } while (file_exists($fn));
-            file_put_contents($fn, $debug_html);
-        }
-        else if (!_is_ajax_request()) {
-            echo $debug_html;
+            $debug_html = _ob_get_clean();
+            if (defined('_DEBUG_OUTPUT_FILE')) {
+                $i = 0;
+                do {
+                    $fn = _DEBUG_OUTPUT_FILE . '-' . time() . '-' . _leading_zero($i, 3) . '.html';
+                    $i++;
+                } while (file_exists($fn));
+                file_put_contents($fn, $debug_html);
+            }
+            else if (!_is_ajax_request()) {
+                echo $debug_html;
+            }
         }
     }
 
@@ -658,7 +661,7 @@ abstract class _cc_foundation {
 
     /**
     * возвращает true если проект запущен в режиме релиза
-    * следует использовать в своих модулях что бы в режиме релиза не выполнять необязательные 
+    * следует использовать в своих модулях что бы в режиме релиза не выполнять необязательные
     * ресурсоемкие операции, которые имеет смысл выполнять только на этапе разработки (например,
     * различные проверки)
     */

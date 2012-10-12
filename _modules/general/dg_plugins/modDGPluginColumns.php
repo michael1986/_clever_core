@@ -28,7 +28,8 @@ class modDGPluginColumns extends modDGPluginBase {
         $this->order = _read_param($this->param_order);
         $this->order_direction = _read_param($this->param_order_direction);
 
-        $dg_order_str = reset($this->_get_holder()->get_order());
+        $order = $this->_get_holder()->get_order();
+        $dg_order_str = reset($order);
         if ($dg_order_str) {
             $dg_order_data = explode(' ', $dg_order_str);
             $dg_order = $dg_order_data[0];

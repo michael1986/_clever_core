@@ -14,6 +14,7 @@ if ($include_js && !defined('DATAGRID_JS')) {
 {@popupmodal_content.tpl}
 <script type="text/javascript">
 var {$js_instance};
+
 $(function () {
     {$js_instance} = new DataGrid({
         prefixDataGrid: '{$prefix_data_grid}',

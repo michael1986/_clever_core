@@ -10,15 +10,20 @@
 */
 class users_foundation extends _db_table {
 
+    /**
+    * Wether or not login is email
+    */
+    protected $login_email = false;
+
     protected $_fields = array(
         'user_id' => array(
             'primary_key' => true,
             'auto_increment' => true,
         ),
         'user_login' => array(
-            'title' => 'LOGIN',
+            'title' => 'LOGIN_EMAIL',
             'validate_input' => '_validate_email',
-            'error_message' => 'ERR_LOGIN'
+            'error_message' => 'ERR_LOGIN_EMAIL'
         ),
         'user_password' => array(
             'type' => 'password',
@@ -53,6 +58,17 @@ class users_foundation extends _db_table {
     public function __construct($data = array()) {
         parent::__construct($data);
 
+        if ($this->login_email) {
+            $this->_fields['user_login']['title'] = 'LOGIN_EMAIL';
+            $this->_fields['user_login']['validate_input'] = '_validate_email';
+            $this->_fields['user_login']['error_message'] = 'ERR_LOGIN_EMAIL';
+        }
+        else {
+            $this->_fields['user_login']['title'] = 'LOGIN';
+            $this->_fields['user_login']['validate_input'] = '_validate_empty';
+            $this->_fields['user_login']['error_message'] = 'ERR_LOGIN';
+        }
+
         $this->levels = $this->user_access_levels->_rows();
         foreach ($this->levels as &$level) {
             $level['al_level'] = (int)$level['al_level'];
@@ -86,7 +102,7 @@ class users_foundation extends _db_table {
     /**
     * если добавляем нового пользователя, то добавляем данные и в связанных датасорцах по user_levels
     */
-    public function _insert($values) {
+    public function _insert($values = array()) {
         if (!isset($values['user_level'])) {
             $values['user_level'] = 0;
         }
@@ -131,7 +147,7 @@ class users_foundation extends _db_table {
     * если обновляется user_level, надо удалить или добавить соответсвующие данные в связаных 
     * датасорцах
     */
-    public function _update($where, $values) {
+    public function _update($where = false, $values = array(), $update_all_possible = false) {
         $users = $this->_rows($where);
         foreach ($users as $u) {
             if (isset($values['user_level'])) {
@@ -166,7 +182,7 @@ class users_foundation extends _db_table {
             }
         }
 
-        return parent::_update($where, $values);
+        return parent::_update($where, $values, $update_all_possible);
     }
 
     /**

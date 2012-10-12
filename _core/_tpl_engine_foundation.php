@@ -278,12 +278,17 @@ abstract class _tpl_engine_foundation extends _core {
                         if ($this->__is_tpl_dir($path . $full_path)) {
                             $paths[] = $path . $full_path . '/';
                         }
+                        $this->__paths_debug[] = $path . $full_path . '/';
                     }
 
-                    if ($this->__is_tpl_dir($path . $research[sizeof($research) - 1][$i])) {
-                        $paths[] = $path . $research[sizeof($research) - 1][$i] . '/';
+                    // 2012-07-19 - only _core added
+                    if ($research[sizeof($research) - 1][$i] == '_core') {
+                        if ($this->__is_tpl_dir($path . $research[sizeof($research) - 1][$i])) {
+                            $paths[] = $path . $research[sizeof($research) - 1][$i] . '/';
+                        }
+                        $this->__paths_debug[] = $path . $research[sizeof($research) - 1][$i] . '/';
                     }
-                    $this->__paths_debug[] = $path . $research[sizeof($research) - 1][$i] . '/';
+                    // EOF 2012-07-19
                 }
             }
         }

@@ -29,14 +29,13 @@ abstract class _db_engine_foundation extends _core {
         if ($this->_hostname === false || $this->_basename === false || $this->_username === false || $this->_password === false) {
             _cc::fatal_error(_DEBUG_SQL, 'SQL Error. Can\'t connect to the database - some settings are not set');
         } else {
-            $this->__db_resource = $this->_connect($this->_hostname, $this->_username, $this->_password);
+            $this->__db_resource = $this->_connect();
             if (!$this->__db_resource) {
                 _cc::fatal_error(_DEBUG_SQL, 'SQL Error. Can\'t connect to the database - some settings are incorrect');
             }
             if (!$this->_select_db($this->_basename, $this->__db_resource)) {
                 _cc::fatal_error(_DEBUG_SQL, 'SQL Error. Can\'t select database - some settings are incorrect');
             }
-            $this->_query("set names 'utf8'");
         }
     }
 
@@ -307,7 +306,7 @@ abstract class _db_engine_foundation extends _core {
     * Require implementation
     *****************************************************************/
 
-    abstract public function _connect($hostname, $username, $password);
+    abstract public function _connect();
 
     abstract public function _select_db($basename);
 
@@ -328,6 +327,8 @@ abstract class _db_engine_foundation extends _core {
     abstract public function _fetch_both($resource, $k);
 
     abstract public function _num_fields($resource);
+
+    abstract public function _screen_key($key);
 
 }
 

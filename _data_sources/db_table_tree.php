@@ -219,7 +219,7 @@ class db_table_tree extends _db_table {
     * @param mixed $values
     * @return mixed
     */
-    public function _insert($values) {
+    public function _insert($values = array()) {
         if ($this->_get_sort_field() && !isset($values[$this->_get_sort_field()]) && isset($values[$this->get_field_parent_id()])) {
             $values[$this->_get_sort_field()] = $this->_row(array(
                 $this->get_field_parent_id() => $values[$this->get_field_parent_id()]
@@ -235,7 +235,7 @@ class db_table_tree extends _db_table {
     * @param mixed $values
     * @return object
     */
-    public function _update($where, $values) {
+    public function _update($where = false, $values = array(), $update_all_possible = false) {
         $ids = $this->_cols($where, $this->_get_primary_key());
         foreach ($ids as $id) {
             if (

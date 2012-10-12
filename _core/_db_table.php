@@ -14,8 +14,8 @@ class _db_table extends _db_table_foundation {
     final public function _low_insert($values = array()) {
         return parent::_low_insert($values);
     }
-    final public function _low_update($where = false, $values = array()) {
-        return parent::_low_update($where, $values);
+    final public function _low_update($where = false, $values = array(), $update_all_possible = false) {
+        return parent::_low_update($where, $values, $update_all_possible);
     }
     final public function _low_delete($where = false, $allow_truncate = false) {
         return parent::_low_delete($where, $allow_truncate);
