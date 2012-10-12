@@ -56,7 +56,10 @@ class backResetPwd extends backBase {
     public function validate_ok($id, $values) {
         $ems = array();
 
-        if ($this->current_admin->get_data('user_password') != $values['current_pwd']) {
+        if (
+            ($this->users->is_password_md5() && $this->current_admin->get_data('user_password') != md5($values['current_pwd'])) ||
+            (!$this->users->is_password_md5() && $this->current_admin->get_data('user_password') != $values['current_pwd'])
+        ) {
             $ems['current_pwd'] = $this->lang['ERROR_CURRENT_PWD'];
         }
         if (!$values['new_pwd']) {
