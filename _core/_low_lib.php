@@ -232,7 +232,7 @@ if (!function_exists('_is_ssl_request')) {
     * @return boolean
     */
     function _is_ssl_request() {
-        if (_env('HTTPS') || strpos(_env('SCRIPT_URI'), 'https://') === 0) {
+        if ((_env('HTTPS') && trim(strtolower(_env('HTTPS'))) != 'off') || strpos(_env('SCRIPT_URI'), 'https://') === 0) {
             return true;
         } else {
             return false;

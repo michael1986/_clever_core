@@ -5,6 +5,6 @@
  */
 
 define('__ENGINE_NAME', 'Clever Core');
-define('__ENGINE_VERSION', '2.1.2.1');
+define('__ENGINE_VERSION', '2.1.2.2');
 $_config['__name'] = __ENGINE_NAME;
 $_config['__version'] = __ENGINE_VERSION;
