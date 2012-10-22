@@ -414,7 +414,11 @@ class _module_foundation extends _core {
     * @return string ссылка
     */
     public function _link($params = array(), $rout_rule = false, $split_url_params = false) {
-        return $this->_internal_link($params, $rout_rule, '&', $split_url_params);
+        return $this->_internal_link($params, $rout_rule, '&', $split_url_params, 'link');
+    }
+
+    public function _ssl_link($params = array(), $rout_rule = false, $split_url_params = false) {
+        return $this->_internal_link($params, $rout_rule, '&', $split_url_params, 'ssl_link');
     }
 
     /**
@@ -436,7 +440,11 @@ class _module_foundation extends _core {
     * @return string
     */
     public function _hlink($params = array(), $rout_rule = false, $split_url_params = false) {
-        return $this->_internal_link($params, $rout_rule, '&amp;', $split_url_params);
+        return $this->_internal_link($params, $rout_rule, '&amp;', $split_url_params, 'link');
+    }
+
+    public function _ssl_hlink($params = array(), $rout_rule = false, $split_url_params = false) {
+        return $this->_internal_link($params, $rout_rule, '&amp;', $split_url_params, 'ssl_link');
     }
 
     /**
@@ -453,13 +461,13 @@ class _module_foundation extends _core {
         return $this->_hlink($params, $rout_rule);
     }
 
-    protected function _internal_link($params = array(), $rout_rule = false, $params_separator = false, $split_url_params = false) {
+    protected function _internal_link($params = array(), $rout_rule = false, $params_separator = false, $split_url_params = false, $method = 'link') {
         $params = __adjust_params($params);
         if ($rout_rule) {
-            return _cc::link($params, $rout_rule, $params_separator, $split_url_params);
+            return _cc::$method($params, $rout_rule, $params_separator, $split_url_params);
         }
         else {
-            return _cc::link($this->__merge_params($this->__sticked_params, $params), false, $params_separator, $split_url_params);
+            return _cc::$method($this->__merge_params($this->__sticked_params, $params), false, $params_separator, $split_url_params);
         }
     }
 

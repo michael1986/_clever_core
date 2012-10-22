@@ -3,6 +3,7 @@
 - пользователям добавлен ключ password_md5, чтобы включить в проекте шифрование пароля нужно перебить датасорц users.php и в нем объявить protected $password_md5 = true;
 - исправлена поддержка password_md5 в backResetPwd
 - _is_ssl_request исправлен для поддержки IIS
+- добавлены методы _ssl_link и _ssl_hlink в класс _module_foundation
 
 Версия 2.1.1, 12 октября 2012 
 -----------------------------

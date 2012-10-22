@@ -451,7 +451,7 @@ abstract class _cc_foundation {
     * @return string URL
     */
     public static function get_http_baseurl($rout_rule = false) {
-        return get_baseurl('http') . self::get_rout_rule_path($rout_rule);
+        return _get_baseurl('http') . self::get_rout_rule_path($rout_rule);
     }
 
     /**
@@ -460,7 +460,7 @@ abstract class _cc_foundation {
     * @return string URL
     */
     public static function get_https_baseurl($rout_rule = false) {
-        return get_baseurl('https') . self::get_rout_rule_path($rout_rule);
+        return _get_baseurl('https') . self::get_rout_rule_path($rout_rule);
     }
 
     /**
@@ -670,12 +670,19 @@ abstract class _cc_foundation {
     }
 
     public static function link($params, $rout_rule = false, $params_separator = false, $split_url_params = false) {
+        return self::internal_link($params, $rout_rule, $params_separator, $split_url_params, 'get_http_baseurl');
+    }
+
+    public static function ssl_link($params, $rout_rule = false, $params_separator = false, $split_url_params = false) {
+        return self::internal_link($params, $rout_rule, $params_separator, $split_url_params, 'get_https_baseurl');
+    }
+
+    protected static function internal_link($params, $rout_rule = false, $params_separator = false, $split_url_params = false, $baseurl_method = false) {
         if (!$params_separator) {
             $params_separator = '&';
         }
 
-        // $params = __adjust_params($params);
-        $url = self::get_baseurl($rout_rule);
+        $url = self::$baseurl_method($rout_rule);
 
         foreach ($params as $key => $value) {
             if ($value === false) {
