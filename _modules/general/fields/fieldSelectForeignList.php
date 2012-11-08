@@ -15,6 +15,7 @@ class fieldSelectForeignList extends fieldSelect {
 
     protected $where = false;
     protected $join = false;
+    protected $columns = false;
 
     function __construct($data = array()) {
         parent::__construct($data);
@@ -42,6 +43,9 @@ class fieldSelectForeignList extends fieldSelect {
         }
         if ($this->where) {
             $ds->_where($this->where);
+        }
+        if ($this->columns) {
+            $ds->_columns($this->columns);
         }
         if ($this->join) {
             if (is_array($this->join)) {

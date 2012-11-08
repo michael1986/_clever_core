@@ -1,5 +1,8 @@
 <?php
 $__tmp_name = '__' . $prefix_data_grid . 'column_index';
+if (!isset($GLOBALS[$__tmp_name])) {
+    $GLOBALS[$__tmp_name] = 0;
+}
 
 if (isset($column) && is_array($column)) {
     if (isset($column['width'])) {
@@ -21,5 +24,5 @@ else if (isset($columns) && isset($columns[$GLOBALS[$__tmp_name]])) {
 }
 ?>
 
-<td{?$colspan} colspan="{$colspan}"{/?} class="grid01ItemColumn {$prefix_data_grid}DataGridTdContent">
+<td{?$colspan} colspan="{$colspan}"{/?} class="{?$class}{$class}{!}grid01ItemColumn {$prefix_data_grid}DataGridTdContent{/?}">
     <div{?$width||$text_align} style="{?$width}width: {$width}px;"{/?}{?$text_align}text-align: {$text_align};{/?}"{/?}>

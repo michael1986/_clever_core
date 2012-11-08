@@ -4,6 +4,8 @@
 - исправлена поддержка password_md5 в backResetPwd
 - _is_ssl_request исправлен для поддержки IIS
 - добавлены методы _ssl_link и _ssl_hlink в класс _module_foundation
+- добавлена поддержка параметра 'columns' для поля select_foreign_list
+- добавлены стили для бекенда grid01SubTitle01 и grid01SubTitle02
 
 Версия 2.1.1, 12 октября 2012 
 -----------------------------

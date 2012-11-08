@@ -598,6 +598,34 @@ a.backendHref:hover {
 .grid01PaginationPrev:hover, .grid01PaginationItemOff:hover, .grid01PaginationNext:hover {
     background: #cbe6fa;
 }
+.grid01SubTitle01 {
+    background-color: #003366;
+    background-image: url('{$_coreurl}images/grid_title_bg.jpg');
+    background-position: 0 50%;
+    background-repeat: repeat-x;
+    border-bottom: 1px solid #003B5E;
+    border-top: 1px solid #7fa4bc;
+    border-left: 1px solid #7fa4bc;
+    border-right: 1px solid #003B5E;
+    color: #fff;
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+.grid01SubTitle02 {
+    background-image: url('{$_coreurl}images/grid_column_title_bg.jpg');
+    background-position: 0 0;
+    background-repeat: repeat-x;
+    border-top: 1px solid #bdbdbd;
+    border-left: 1px solid #bdbdbd;
+    border-right: 1px solid #5e5e5e;
+    border-bottom: 1px solid #5e5e5e;
+    color: #fff;
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+    padding: 5px 10px;
+}
 
 /* controls overall design */
 .backendCtrlTable {
