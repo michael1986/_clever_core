@@ -6,6 +6,8 @@
 - добавлены методы _ssl_link и _ssl_hlink в класс _module_foundation
 - добавлена поддержка параметра 'columns' для поля select_foreign_list
 - добавлены стили для бекенда grid01SubTitle01 и grid01SubTitle02
+- если поле mandatory то ему по-умолчанию выставляется 'validate_input' => '_validate_empty'
+- в стили бекенда добавлен backendYellow
 
 Версия 2.1.1, 12 октября 2012 
 -----------------------------

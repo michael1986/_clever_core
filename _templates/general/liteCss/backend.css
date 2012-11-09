@@ -793,6 +793,9 @@ a.backendHref:hover {
 .backendRed {
     color: #aa0000;
 }
+.backendYellow {
+    color: #ffaa00;
+}
 .backendGray {
     color: #999;
 }

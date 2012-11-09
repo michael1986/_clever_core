@@ -56,6 +56,9 @@ class _fields_foundation extends _data_source {
         foreach ($this->_fields as $index => &$field) {
 
             $field = _adjust_field_description($index, $field);
+            if (!empty($field['mandatory']) && empty($field['validate_input'])) {
+                $field['validate_input'] = '_validate_empty';
+            }
 
             $this->__fields_names[$field['name']] = $index;
         }
