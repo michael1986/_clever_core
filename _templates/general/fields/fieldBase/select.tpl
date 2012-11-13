@@ -3,7 +3,7 @@
         {$title}{?$mandatory}<span class="form01FieldMandatory">*</span>{/?}:
     </div>
     <div class="form01FieldField{?$error} form01FieldError{/?}">
-        <select size="{$size}" name="{$name}" id="{$id}" class="{?$class}{$class}{!}form01FieldSelectInput{/?}"{?$multiple} multiple{/?}>
+        <select size="{$size}" name="{$name}" id="{$id}" class="{?$class}{$class}{!}form01FieldSelectInput{/?}"{?$multiple} multiple{/?}{?$style} style="{$style}"{/?}>
         {*$options:$option}
         <option value="{$option[value]}"{?$option[selected]} selected="selected"{/?} class="{?$option[class]}{$option[class]}{!}form01FieldSelectOption{/?}">{$option[label]}</option>
         {/*}

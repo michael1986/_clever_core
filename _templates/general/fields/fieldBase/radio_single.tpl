@@ -5,7 +5,7 @@
         </label>
     </div>
     <div class="form01FieldField{?$error} form01FieldError{/?}">
-        <input type="radio" name="{$name}" id="{$id}{$significance}" value="{$significance}" class="{?$class}{$class}{!}form01FieldCheckboxInput{/?}"{?$value} checked="checked"{/?}>
+        <input type="radio" name="{$name}" id="{$id}{$significance}" value="{$significance}" class="{?$class}{$class}{!}form01FieldCheckboxInput{/?}"{?$value} checked="checked"{/?}{?$style} style="{$style}"{/?}>
         {?$note}
         <label for="{$id}{$significance}" class="form01FieldNote">
             {$note}

@@ -3,7 +3,7 @@
         {$title}{?$mandatory}<span class="form01FieldMandatory">*</span>{/?}:
     </div>
     <div class="form01FieldField{?$error} form01FieldError{/?}">
-        <input type="text" id="{$id}" name="{$name}" value="{$value}" class="{?$class}{$class}{!}form01FieldTextInput{/?}">
+        <input type="text" id="{$id}" name="{$name}" value="{$value}" class="{?$class}{$class}{!}form01FieldTextInput{/?}"{?$style} style="{$style}"{/?}>
         {?$note}<br><span class="form01FieldNote">{$note}</span>{/?}
     </div>
 </div>
