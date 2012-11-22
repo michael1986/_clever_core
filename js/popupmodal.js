@@ -150,8 +150,8 @@ if (typeof(PopupModal) == 'undefined') {
                     hide: 200,
                     contentContainerSelector: '.popupModalContentContainer', // previously was popupModalContent
                     opacity: 0.4,
-                    maxHeight: 0.7,
-                    maxWidth: 0.7,
+                    maxHeight: 0.9,
+                    maxWidth: 0.9,
                     center: true,
                     DOMSafety: false
                 }, passedOptions), {

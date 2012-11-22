@@ -626,6 +626,19 @@ a.backendHref:hover {
     font-size: 12px;
     padding: 5px 10px;
 }
+.grid01SubTitle03 {
+    background-image: url('{$_coreurl}images/form_submits_bg.jpg');
+    background-position: 0 0;
+    background-repeat: repeat-x;
+    border-top: 1px solid #E5E5E5;
+    border-left: 1px solid #DADADA;
+    border-right: 1px solid #DADADA;
+    border-bottom: 1px solid #DADADA;
+    color: #000;
+    font-family: arial, helvetica, san-serif;
+    font-size: 12px;
+    padding: 5px 10px;
+}
 
 /* controls overall design */
 .backendCtrlTable {

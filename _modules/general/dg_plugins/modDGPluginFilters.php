@@ -258,6 +258,16 @@ class modDGPluginFilters extends modDGPluginBase {
         }
         return $where;
     }
+
+    public function adjust_order($order) {
+        if ($this->form) {
+            $values = $this->form->get_values();
+            if (method_exists($this->_get_holder()->_get_holder(), $this->prefix_callbacks . 'adjust_order')) {
+                $order = call_user_func_array(array($this->_get_holder()->_get_holder(), $this->prefix_callbacks . 'adjust_order'), array($order, $values));
+            }
+        }
+        return $order;
+    }
 }
 
 
