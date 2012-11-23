@@ -155,14 +155,13 @@ class modDGPluginColumns extends modDGPluginBase {
             if ($this->order_direction == 'desc') {
                 $order_str .= ' desc';
             }
-            $ret = array();
+            $ret = array($order_str);
             foreach ($order as $o) {
                 $o_parts = explode(' ', $o);
                 if ($o_parts[0] != $this->order_fields[$this->order]) {
                     $ret[] = $o;
                 }
             }
-            $ret[] = $order_str;
             return $ret;
         }
         else {
