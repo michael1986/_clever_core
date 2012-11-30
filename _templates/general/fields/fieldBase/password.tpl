@@ -6,4 +6,5 @@
         <input type="password" id="{$id}" name="{$name}" value="{$value}" class="{?$class}{$class}{!}form01FieldPasswordInput{/?}"{?$style} style="{$style}"{/?}>
         {?$note}<br><span class="form01FieldNote">{$note}</span>{/?}
     </div>
+    <div style="clear: both"></div>
 </div>

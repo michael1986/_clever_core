@@ -12,4 +12,5 @@
         <input type="file" id="{$id}" name="{$name}[new]" class="{?$class}{$class}{!}backendFieldFileInput{/?}"{?$style} style="{$style}"{/?}>
         {?$note}<br><span class="form01FieldNote">{$note}</span>{/?}
     </div>
+    <div style="clear: both"></div>
 </div>

@@ -9,4 +9,5 @@
         {/*}
         {?$note}<br><span class="form01FieldNote">{$note}</span>{/?}
     </div>
+    <div style="clear: both"></div>
 </div>

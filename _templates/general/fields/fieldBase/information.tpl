@@ -5,4 +5,5 @@
     <div class="form01FieldField{?$error} form01FieldError{/?}">
         {$information}
     </div>
+    <div style="clear: both"></div>
 </div>
