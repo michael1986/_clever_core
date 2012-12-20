@@ -144,7 +144,6 @@ abstract class _tpl_engine_foundation extends _core {
                                 $parent = $parent->_get_holder();
                             }
                             $hierarchy = $parent->_get_hierarchy();
-
                             if (!$first_iteration) {
                                 // remove _core and _module from hierarchy
                                 array_pop($hierarchy);
@@ -156,7 +155,14 @@ abstract class _tpl_engine_foundation extends _core {
                             }
                             if ($_templates_dir = $parent->_get_templates_dir()) {
                                 // add templates_dir with highest priority
-                                $hierarchy = array_merge($_templates_dir, $hierarchy);
+                                for ($i = sizeof($_templates_dir) - 1; $i >= 0; $i--) {
+                                    $dirname = dirname($_templates_dir[$i]);
+                                    $class = basename($_templates_dir[$i]);
+                                    if ($dirname && !isset($GLOBALS['__classes'][$class])) {
+                                        $GLOBALS['__classes'][$class] = _fix_path($dirname);
+                                    }
+                                    array_unshift($hierarchy, $class);
+                                }
                             }
                             if (!$first_iteration) {
                                 // add empty dir with lowest priority
