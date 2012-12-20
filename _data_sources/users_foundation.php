@@ -21,11 +21,7 @@ class users_foundation extends _db_table {
             'primary_key' => true,
             'auto_increment' => true,
         ),
-        'user_login' => array(
-            'title' => 'LOGIN_EMAIL',
-            'validate_input' => '_validate_email',
-            'error_message' => 'ERR_LOGIN_EMAIL'
-        ),
+        'user_login' => false, // to be initiated in the constructor
         'user_password' => array(
             'type' => 'password',
             'title' => 'PASSWORD',
@@ -59,15 +55,17 @@ class users_foundation extends _db_table {
     public function __construct($data = array()) {
         parent::__construct($data);
 
-        if ($this->login_email) {
-            $this->_fields['user_login']['title'] = 'LOGIN_EMAIL';
-            $this->_fields['user_login']['validate_input'] = '_validate_email';
-            $this->_fields['user_login']['error_message'] = 'ERR_LOGIN_EMAIL';
-        }
-        else {
-            $this->_fields['user_login']['title'] = 'LOGIN';
-            $this->_fields['user_login']['validate_input'] = '_validate_empty';
-            $this->_fields['user_login']['error_message'] = 'ERR_LOGIN';
+        if (empty($this->_fields['user_login'])) {
+            if ($this->login_email) {
+                $this->_fields['user_login']['title'] = 'LOGIN_EMAIL';
+                $this->_fields['user_login']['validate_input'] = '_validate_email';
+                $this->_fields['user_login']['error_message'] = 'ERR_LOGIN_EMAIL';
+            }
+            else {
+                $this->_fields['user_login']['title'] = 'LOGIN';
+                $this->_fields['user_login']['validate_input'] = '_validate_empty';
+                $this->_fields['user_login']['error_message'] = 'ERR_LOGIN';
+            }
         }
 
         $this->levels = $this->user_access_levels->_rows();
