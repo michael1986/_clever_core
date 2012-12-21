@@ -89,7 +89,11 @@ class modDGPluginFilters extends modDGPluginBase {
             $values = $this->form->get_values();
             $submit = $this->form->get_submit();
             if ($submit == 'ok' || $this->apply) {
-                foreach ($this->fields as $field) {
+
+                $__id_counter = 0;
+                $fields_modules_map = array();
+                $fields_plain = _fields::__line_up_fields($this->fields, $fields_modules_map, $__id_counter);
+                foreach ($fields_plain as $field) {
                     if (
                         (!isset($field['ignore']) || !$field['ignore']) && 
                         isset($values[$field['name']])
