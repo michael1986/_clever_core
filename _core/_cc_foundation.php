@@ -97,7 +97,7 @@ abstract class _cc_foundation {
                                 // (is_string($rule['_extract_hint']) && $rule['_extract_hint'] == $module_name)
                             ) {
                                 if ($url_converter_obj = self::create_url_converter($rule)) {
-                                    $params = $url_converter_obj->_extract($GLOBALS['__params']);
+                                    $params = $url_converter_obj->_extract($GLOBALS['__params'], isset($rule['_settings']) ? $rule['_settings'] : false);
                                     if (is_array($params)) {
                                         foreach ($params as $name => $value) {
                                             _write_router_param($name, $value);
@@ -186,7 +186,7 @@ abstract class _cc_foundation {
                             // добавлен второй параметр - оригинальные параметры, что бы можно
                             // было влиять на выполнение следующих правил
                             // $link .= $router_obj->_compact($tmp_params, $params);
-                            $link .= $router_obj->_compact($tmp_params);
+                            $link .= $router_obj->_compact($tmp_params, isset($rule['_settings']) ? $rule['_settings'] : false);
                             $removed_params = array_merge($removed_params, array_diff(array_keys($params), array_keys($tmp_params)));
                             // сохранить изменения, которые программист внес в параметры
                             foreach ($tmp_params as $key => $val) {
