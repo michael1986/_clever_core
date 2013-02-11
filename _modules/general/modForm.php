@@ -161,6 +161,7 @@ class modForm extends modFormBasic {
     * @var string
     */
     protected $callback_proceed = 'proceed';
+    protected $callback_proceed_ok = 'proceed_ok';
     protected $callback_proceed_cancel = 'proceed_cancel';
     protected $callback_proceed_finish = 'proceed_finish';
     protected $callback_proceed_back   = 'proceed_back';
@@ -249,14 +250,21 @@ class modForm extends modFormBasic {
         $this->callback_validate            = $this->prefix_callbacks . $this->callback_validate;
         $this->callback_list_submits        = $this->prefix_callbacks . $this->callback_list_submits;
         $this->callback_proceed             = $this->prefix_callbacks . $this->callback_proceed;
-        $this->callback_proceed_cancel      = $this->prefix_callbacks . $this->callback_proceed_cancel;
+        if (!is_callable($this->callback_proceed_ok)) {
+            $this->callback_proceed_ok      = $this->prefix_callbacks . $this->callback_proceed_ok;
+        }
+        if (!is_callable($this->callback_proceed_cancel)) {
+            $this->callback_proceed_cancel      = $this->prefix_callbacks . $this->callback_proceed_cancel;
+        }
         $this->callback_proceed_finish      = $this->prefix_callbacks . $this->callback_proceed_finish;
         $this->callback_proceed_back        = $this->prefix_callbacks . $this->callback_proceed_back;
         $this->callback_proceed_next        = $this->prefix_callbacks . $this->callback_proceed_next;
 
         $this->callback_prepare             = $this->prefix_callbacks . $this->callback_prepare;
 
-        $this->callback_complete            = $this->prefix_callbacks . $this->callback_complete;
+        if (!is_callable($this->callback_complete)) {
+            $this->callback_complete            = $this->prefix_callbacks . $this->callback_complete;
+        }
 
         // depricated
         $this->callback_list_add_fields     = $this->prefix_callbacks . $this->callback_list_add_fields;
@@ -644,20 +652,28 @@ class modForm extends modFormBasic {
         $values = $this->convert_values_with_keys($this->finalize($this->external_values));
         // eof
 
-        if (method_exists($this->_get_holder(), $this->callback_complete)) {
+        if (is_callable($this->callback_complete)) {
             $res = call_user_func_array(
-                array($this->_get_holder(), $this->callback_complete), 
-                array($id, $values, $step, $form, $submits)
-            );
-        }
-        else if (method_exists($this->data_source, $this->callback_complete)) {
-            $res = call_user_func_array(
-                array($this->data_source, $this->callback_complete), 
+                $this->callback_complete, 
                 array($id, $values, $step, $form, $submits)
             );
         }
         else {
-            $res = $this->complete($id, $values);
+            if (method_exists($this->_get_holder(), $this->callback_complete)) {
+                $res = call_user_func_array(
+                    array($this->_get_holder(), $this->callback_complete), 
+                    array($id, $values, $step, $form, $submits)
+                );
+            }
+            else if (method_exists($this->data_source, $this->callback_complete)) {
+                $res = call_user_func_array(
+                    array($this->data_source, $this->callback_complete), 
+                    array($id, $values, $step, $form, $submits)
+                );
+            }
+            else {
+                $res = $this->complete($id, $values);
+            }
         }
 
         // если при инициализации формы передать ключ link_ok, 
@@ -699,36 +715,50 @@ class modForm extends modFormBasic {
     */
     protected function do_proceed($id, $values, $step, $form, $submits) {
         $submit = end($submits);
-        $callback = $this->callback_proceed . '_' . $submit;
-        if (method_exists($this->_get_holder(), $callback)) {
-            return call_user_func_array(array($this->_get_holder(), $callback), array(
-                $id,
-                $values,
-                $step,
-                $form,
-                $submits
-            ));
-        }
-        else if (method_exists($this->data_source, $callback)) {
-            return call_user_func_array(array($this->data_source, $callback), array(
-                $id,
-                $values,
-                $step,
-                $form,
-                $submits
-            ));
-        }
-        else if (method_exists($this, 'proceed_' . $submit)) {
-            return call_user_func_array(array($this, 'proceed_' . $submit), array(
-                $id,
-                $values,
-                $step,
-                $form,
-                $submits
-            ));
+        if (is_callable($this->{'callback_proceed_' . $submit})) {
+            return call_user_func_array(
+                $this->{'callback_proceed_' . $submit},
+                array(
+                    $id,
+                    $values,
+                    $step,
+                    $form,
+                    $submits
+                )
+            );
         }
         else {
-            _cc::fatal_error(_DEBUG_CC, 'Form error. Callback not found: <b>' . $callback . '</b>');
+            $callback = $this->callback_proceed . '_' . $submit;
+            if (method_exists($this->_get_holder(), $callback)) {
+                return call_user_func_array(array($this->_get_holder(), $callback), array(
+                    $id,
+                    $values,
+                    $step,
+                    $form,
+                    $submits
+                ));
+            }
+            else if (method_exists($this->data_source, $callback)) {
+                return call_user_func_array(array($this->data_source, $callback), array(
+                    $id,
+                    $values,
+                    $step,
+                    $form,
+                    $submits
+                ));
+            }
+            else if (method_exists($this, 'proceed_' . $submit)) {
+                return call_user_func_array(array($this, 'proceed_' . $submit), array(
+                    $id,
+                    $values,
+                    $step,
+                    $form,
+                    $submits
+                ));
+            }
+            else {
+                _cc::fatal_error(_DEBUG_CC, 'Form error. Callback not found: <b>' . $callback . '</b>');
+            }
         }
     }
 

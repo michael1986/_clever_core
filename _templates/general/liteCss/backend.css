@@ -232,6 +232,50 @@ a.backendHref:hover {
     padding: 10px 15px;
 }
 
+/* favorites */
+.backendFavoritesContainer {
+    float: right; 
+    margin-right: 25px;
+}
+.backendShowFavorites {
+    background-image: url('{$_coreurl}images/control_bg.jpg'); 
+    background-position: 0 50%; 
+    border-top: 1px solid #b7d0e1; 
+    border-left: 1px solid #b7d0e1; 
+    border-right: 1px solid #b7d0e1; 
+    color: #000; 
+    cursor: pointer;
+    display: block; 
+    line-height: 30px;
+    max-width: 200px;
+    outline: none;
+    padding: 0 15px;
+    text-decoration: none;
+    padding: 0 10px;
+}
+.backendShowFavorites:hover {
+    background-position: 200px 50%; 
+    color: #004473;
+}
+.backendFavoriteList {
+    background: #F3F3F3;
+    border-top: 1px solid #b7d0e1; 
+    border-bottom: 1px solid #b7d0e1; 
+    border-left: 1px solid #b7d0e1; 
+    border-right: 1px solid #b7d0e1; 
+    display: none;
+    position: absolute;
+    padding: 10px 15px;
+    color: #fff;
+    right: 24px;
+}
+.backendFavoriteItem, .backendAddToFavorites {
+    color: #000; 
+    text-decoration: none;
+}
+.backendFavoriteItem:hover, .backendAddToFavorites:hover {
+    color: #004473;
+}
 /* expand / contract */
 .backendSwitchFullScreen {
     background-image: url('{$_coreurl}images/control_bg.jpg'); 
@@ -243,6 +287,7 @@ a.backendHref:hover {
     display: block; 
     float: right; 
     line-height: 30px;
+    /* to be eliminated once FAV feature enabled */
     margin-right: 25px;
     max-width: 200px;
     outline: none;
@@ -263,7 +308,7 @@ a.backendHref:hover {
     float: right; 
     line-height: 30px;
     margin-top: 1px;
-    margin-right: 25px;
+/*    margin-right: 25px;*/
     max-width: 200px;
     outline: none;
     padding: 0 15px;

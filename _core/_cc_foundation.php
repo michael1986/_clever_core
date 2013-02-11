@@ -379,7 +379,8 @@ abstract class _cc_foundation {
         if (self::load_data_source($name)) {
             $data = new $name($initial_data);
             return $data;
-        } else {
+        }
+        else {
             return self::create_data_from_array(array(
                 '_table' => $name
             ), $initial_data, $data_source_class);

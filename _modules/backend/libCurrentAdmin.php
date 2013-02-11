@@ -8,7 +8,6 @@ class libCurrentAdmin extends libCurrentUserBase {
     protected $param_sess_id = 'admin_sess_id';
     protected $cookie_param_sess_id = 'admin_sess_id';
 
-
     public function __construct($data = array()) {
         parent::__construct($data);
 

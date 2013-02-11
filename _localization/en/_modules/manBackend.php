@@ -20,6 +20,13 @@ $lang = array(
     'CHOOSE_MODULE_TITLE' => 'Choose module',
     'CHOOSE_MODULE_MESSAGE' => 'Choose module on the left side',
 
+    'FAVORITES' => 'Favorites',
+    'ADD_TO_FAVORITES_MENU_ITEM' => 'Add current page to favorites',
+    'ADD_TO_FAVORITES_FORM_TITLE' => 'Add current page to favorites',
+    'ADD_TO_FAVORITES_FIELD_TITLE' => 'Enter title',
+
+    'LOADING' => 'Loading...',
+
     'EXPAND' => 'Full window view',
     'CONTRACT' => 'Normal view',
 

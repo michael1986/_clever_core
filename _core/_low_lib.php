@@ -822,12 +822,16 @@ if (!function_exists('_resample_image')) {
             $bg = array(255, 255, 255);
         }
         $is = @GetImageSize($source);
-//_ve($is);
+
         // if not image or not JPG just copy
         if (
             ($is && $is[0] == $w && $is[1] == $h) ||
-            !$is ||
+            !$is
+                /* removed file type validation
+                ||
             ($is[2] != 2 && $is[2] != 1)
+                 * 
+                 */
         ) {
             if ($destination) {
                 @copy($source, $destination);

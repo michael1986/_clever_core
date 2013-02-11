@@ -8,11 +8,14 @@
 class manBackend extends _module {
     protected $act_param = 'back_act';
     protected $param_module = 'back_module';
+    protected $param_add = 'back_add';
     protected $module = false;
     protected $default_module = false;
 
     protected $pages = false;
     protected $main_menu = false;
+
+    protected $backend_instance = 'backendInstance';
 
     public function _run() {
         $lang_name = _cc::get_config('_project', '_language');
@@ -117,7 +120,7 @@ class manBackend extends _module {
         $this->_stick_param($this->param_module, $this->module);
 
         if ($module_page_data) {
-            $content = $this->_module($module_page_data['page_module']);
+            $content = $this->_module($module_page_data['page_module'])->/*_append_breadcrumbs($this->_get_breadcrumbs())->*/_run();
         }
         else {
             $this->_redirect($this->_link(array(
@@ -127,15 +130,52 @@ class manBackend extends _module {
 
         $this->build_main_menu();
 
-        return $this->_tpl('inside.tpl', $this->adjust_inside_tpl_data(array(
-            'main_menu'     => $this->main_menu,
-            'title'         => $module_page_data['page_title'],
-            'content'       => $content->/*_append_breadcrumbs($this->_get_breadcrumbs())->*/_run(),
-            'signout_link'  => $this->_hlink(array(
-                $this->act_param => 'signout'
-            )),
-            'lang' => $this->lang
-       )));
+        $page_title = (!empty($content->_vars['page_title']) ? $content->_vars['page_title'] : $module_page_data['page_title']);
+
+        if (/* FAV disabled */ false && $this->_read_sticky_param($this->param_add)) {
+            $form = $this->_module('backend/modBackForm', array(
+                '_templates_dir' => 'modFormAddToFav',
+                'prefix_params' => 'add_f_',
+                'fields' => array(
+                    'f_title' => array(
+                        'title' => $this->lang['ADD_TO_FAVORITES_FIELD_TITLE'],
+                        'value' => $page_title
+                    ),
+                    'f_link' => array(
+                        'tpl_name' => 'window_location.tpl'
+                    )
+                ),
+                'title' => $this->lang['ADD_TO_FAVORITES_FORM_TITLE'],
+                'ajax' => true,
+                'ajax_handler' => $this->backend_instance . '.handleAjax',
+                'callback_complete' => function ($id, $values) {
+                    _cc::create_data_from_class('back_favorites', false, false)->_insert(array(
+                        'f_title' => $values['f_title'],
+                        'f_link' => $this->current_admin->remove_session_params($values['f_link'])
+                    ));
+                },
+                'callback_proceed_cancel' => function () {
+                }
+            ));
+            _overwhelm_response($form->_run());
+        }
+        else {
+            return $this->_tpl('inside.tpl', $this->adjust_inside_tpl_data(array(
+                'main_menu'     => $this->main_menu,
+                'page_title'    => $page_title,
+                'content'       => $content,
+                'link_add_to_favorites' => $this->_link(array(
+                    $this->param_add => 'on'
+                )),
+                // FAV disabled
+                // 'favorites' => $this->back_favorites->_arows(),
+                'signout_link'  => $this->_hlink(array(
+                    $this->act_param => 'signout'
+                )),
+                'backend_instance' => $this->backend_instance,
+                'lang' => $this->lang
+            )));
+        }
     }
 
     protected function adjust_inside_tpl_data($data) {

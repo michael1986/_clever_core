@@ -132,6 +132,14 @@ class libCurrentUserBase extends _module {
         }
     }
 
+    public function remove_session_params($link) {
+        if ($this->cookie_session) {
+            return $link;
+        } else {
+            return preg_replace('#(\?|&)' . $this->param_sess_id . '=[\w\d]{32}(&|$)#', '\\1', $link);
+        }
+    }
+
     /**
     * Создает сессию, если она еще не создана
     *

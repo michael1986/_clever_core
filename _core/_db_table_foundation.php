@@ -564,8 +564,12 @@ abstract class _db_table_foundation extends _fields {
                 isset($row[$this->_prefix_fields . 'title'])?
                     $row[$this->_prefix_fields . 'title']
                     :
-                    'Record ID: ' . $row[$this->_get_primary_key()];
-        }
+                    (
+                        isset($row[$this->_get_primary_key()])?
+                            'Record ID: ' . $row[$this->_get_primary_key()]:
+                            'Record'
+                    );
+         }
         else {
             return false;
         }
