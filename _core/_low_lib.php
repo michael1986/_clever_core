@@ -826,12 +826,8 @@ if (!function_exists('_resample_image')) {
         // if not image or not JPG just copy
         if (
             ($is && $is[0] == $w && $is[1] == $h) ||
-            !$is
-                /* removed file type validation
-                ||
-            ($is[2] != 2 && $is[2] != 1)
-                 * 
-                 */
+            !$is ||
+            ($is[2] != 3 && $is[2] != 2 && $is[2] != 1)
         ) {
             if ($destination) {
                 @copy($source, $destination);
@@ -846,14 +842,17 @@ if (!function_exists('_resample_image')) {
         if ($is[2] == 2) { // JPG
             $output_function = 'ImageJPEG';
             $sip = @ImageCreateFromJPEG($source);
+            $output_param_quality = 80;
         } 
         else if ($is[2] == 1) { // GIF
             $output_function = 'ImageGIF';
             $sip = @ImageCreateFromGIF($source);
+            $output_param_quality = 80;
         }
         else if ($is[2] == 3) { // PNG
             $output_function = 'ImagePNG';
             $sip = @ImageCreateFromPNG($source);
+            $output_param_quality = 8;
         }
         if ($is && $sip) {
             $k = $w/$h;
@@ -878,12 +877,12 @@ if (!function_exists('_resample_image')) {
             if (ImageCopyResampled($dip, $sip, ($w - $sw) / 2, ($h - $sh) / 2, 0, 0, $sw, $sh, $is[0], $is[1])) {
                 ImageDestroy($sip);
                 if ($destination) {
-                    $output_function($dip, $destination, 80);
+                    $output_function($dip, $destination, $output_param_quality);
                     $ret = true;
                 } 
                 else {
                     _ob_start();
-                    $output_function($dip, false, 80);
+                    $output_function($dip, false, $output_param_quality);
                     $ret = ob_get_contents();
                     _ob_end_clean();
                 }
@@ -914,7 +913,7 @@ if (!function_exists('_resample_image_by_max')) {
         if (
             ($is && $is[0] == $w && $is[1] == $h)||
             !$is ||
-            ($is[2] != 2 && $is[2] != 1)
+            ($is[2] != 3 && $is[2] != 2 && $is[2] != 1)
         ) {
             if ($destination) {
                 @copy($source, $destination);
@@ -928,14 +927,17 @@ if (!function_exists('_resample_image_by_max')) {
         if ($is[2] == 2) { // JPG
             $output_function = 'ImageJPEG';
             $sip = @ImageCreateFromJPEG($source);
+            $output_param_quality = 80;
         } 
         else if ($is[2] == 1) { // GIF
             $output_function = 'ImageGIF';
             $sip = @ImageCreateFromGIF($source);
+            $output_param_quality = 80;
         }
         else if ($is[2] == 3) { // PNG
             $output_function = 'ImagePNG';
             $sip = @ImageCreateFromPNG($source);
+            $output_param_quality = 8;
         }
         if ($is && $sip) {
             $sk = $is[0] / $is[1];
@@ -951,12 +953,12 @@ if (!function_exists('_resample_image_by_max')) {
             if (ImageCopyResampled($dip, $sip, 0, 0, 0, 0, $sw, $sh, $is[0], $is[1])) {
                 ImageDestroy($sip);
                 if ($destination) {
-                    $output_function($dip, $destination, 80);
+                    $output_function($dip, $destination, $output_param_quality);
                     $ret = true;
                 } 
                 else {
                     _ob_start();
-                    $output_function($dip, false, 80);
+                    $output_function($dip, false, $output_param_quality);
                     $ret = ob_get_contents();
                     _ob_end_clean();
                 }
@@ -989,7 +991,7 @@ if (!function_exists('_resample_image_fit')) {
         if (
             ($is && ($is[0] <= $w || !$w) && ($is[1] <= $h || !$h)) ||
             !$is ||
-            ($is[2] != 2 && $is[2] != 1)
+            ($is[2] != 3 && $is[2] != 2 && $is[2] != 1)
         ) {
             if ($fname) {
                 @copy($source, $fname);
@@ -1009,14 +1011,17 @@ if (!function_exists('_resample_image_fit')) {
         if ($is[2] == 2) { // JPG
             $output_function = 'ImageJPEG';
             $sip = @ImageCreateFromJPEG($source);
+            $output_param_quality = 80;
         } 
         else if ($is[2] == 1) { // GIF
             $output_function = 'ImageGIF';
             $sip = @ImageCreateFromGIF($source);
+            $output_param_quality = 80;
         }
         else if ($is[2] == 3) { // PNG
             $output_function = 'ImagePNG';
             $sip = @ImageCreateFromPNG($source);
+            $output_param_quality = 8;
         }
         if ($is && $sip) {
             $k = $w / $h;
@@ -1043,12 +1048,12 @@ if (!function_exists('_resample_image_fit')) {
             if (ImageCopyResampled($dip, $sip, 0, 0, 0, 0, $sw, $sh, $is[0], $is[1])) {
                 ImageDestroy($sip);
                 if ($fname) {
-                    $output_function($dip, $fname, 80);
+                    $output_function($dip, $fname, $output_param_quality);
                     $ret = true;
                 } 
                 else {
                     _ob_start();
-                    $output_function($dip, false, 80);
+                    $output_function($dip, false, $output_param_quality);
                     $ret = ob_get_contents();
                     _ob_end_clean();
                 }

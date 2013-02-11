@@ -133,6 +133,7 @@ class manBackend extends _module {
         $page_title = (!empty($content->_vars['page_title']) ? $content->_vars['page_title'] : $module_page_data['page_title']);
 
         if (/* FAV disabled */ false && $this->_read_sticky_param($this->param_add)) {
+            /*
             $form = $this->_module('backend/modBackForm', array(
                 '_templates_dir' => 'modFormAddToFav',
                 'prefix_params' => 'add_f_',
@@ -158,6 +159,7 @@ class manBackend extends _module {
                 }
             ));
             _overwhelm_response($form->_run());
+            */
         }
         else {
             return $this->_tpl('inside.tpl', $this->adjust_inside_tpl_data(array(
