@@ -323,6 +323,23 @@ abstract class _cc_foundation {
         }
     }
 
+    public static function create_data_source($data, $initial_data = array(), $data_source_class = false) {
+        if (!$data_source_class) {
+            $data_source_class = __DEFAULT_DATA_SOURCE_CLASS;
+        }
+        return self::create_data_from_class($data, $initial_data, $data_source_class);
+    }
+
+    public static function get_data_source($name) {
+        if (!isset($GLOBALS['__cc_globals']['__data_sources'])) {
+            $GLOBALS['__cc_globals']['__data_sources'] = array();
+        }
+        if (!isset($GLOBALS['__cc_globals']['__data_sources'][$name])) {
+            $GLOBALS['__cc_globals']['__data_sources'][$name] = self::create_data_source($name);
+        }
+        return $GLOBALS['__cc_globals']['__data_sources'][$name];
+    }
+
     /**
     * Поиск и подключение данных
     *

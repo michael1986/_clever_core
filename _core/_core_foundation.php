@@ -94,10 +94,7 @@ abstract class _core_foundation {
      * @return db_table (data_source) Объект data_source
      */
     public function _create_data_source($data, $initial_data = array(), $data_source_class = false) {
-        if (!$data_source_class) {
-            $data_source_class = __DEFAULT_DATA_SOURCE_CLASS;
-        }
-        return _cc::create_data_from_class($data, $initial_data, $data_source_class);
+        return _cc::create_data_source($data, $initial_data, $data_source_class);
     }
 
     /**
