@@ -25,4 +25,4 @@ else if (isset($columns) && isset($columns[$GLOBALS[$__tmp_name]])) {
 ?>
 
 <td{?$colspan} colspan="{$colspan}"{/?} class="{?$class}{$class}{!}grid01ItemColumn {$prefix_data_grid}DataGridTdContent{/?}">
-    <div{?$width||$text_align} style="{?$width}width: {$width}px;"{/?}{?$text_align}text-align: {$text_align};{/?}"{/?}>
+    <div{?$width||$text_align} style="{?$width}width: {$width}px;{/?}{?$text_align}text-align: {$text_align};{/?}"{/?}>
