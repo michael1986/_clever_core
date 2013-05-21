@@ -699,9 +699,12 @@ abstract class _cc_foundation {
         if (!$params_separator) {
             $params_separator = '&';
         }
-
-        $url = self::$baseurl_method($rout_rule);
-
+        
+        /* Michael's changes (06.03.2013): this method of getting baseurl doesn't work correctly with https protocol 
+        because of all generated urls on the site use http protocol including links in the current page */
+        // $url = self::$baseurl_method($rout_rule);
+        $url = self::get_baseurl($rout_rule);
+        
         foreach ($params as $key => $value) {
             if ($value === false) {
                 unset($params[$key]);

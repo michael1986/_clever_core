@@ -13,6 +13,6 @@ $(function () {
     });
 });
 </script>
-<div id="{$prefix_form}Form">
+<div id="{$prefix_form}Form" style="display: inline-block; width: 100%">
     {@form_html.tpl}
 </div>
