@@ -1089,11 +1089,17 @@ class modForm extends modFormBasic {
         $this->initialize();
 
         if ($this->ajax) {
+            if (_is_ssl_request()) {
+                $link_method = '_ssl_link';
+            }
+            else {
+                $link_method = '_link';
+            }
             _overwhelm_response(
                 json_encode($array = array(
                     'type' => 'form_link',
                     // 'content' => is_array($link) ? $this->_get_holder()->_get_link($link) : $link
-                    'content' => is_array($link) ? $this->_link($link) : $link
+                    'content' => is_array($link) ? $this->$link_method($link) : $link
                 )),
                 'application/json'
             );

@@ -443,6 +443,7 @@ a.backendHref:hover {
     background: #f3f8fa;
     border-right: 1px solid #e1ecf2;
     border-bottom: 1px solid #e1ecf2;
+    /*height: 31px;*/
     /* clear: both; */
     /* overflow: hidden; */
 }

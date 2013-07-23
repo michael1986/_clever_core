@@ -476,11 +476,18 @@ class _module_foundation extends _core {
     }
 
     public function _redirect($link = false) {
+        if (_is_ssl_request()) {
+            $link_method = '_ssl_link';
+        }
+        else {
+            $link_method = '_link';
+        }
+        
         if (is_array($link)) {
-            $link = $this->_link($link);
+            $link = $this->$link_method($link);
         }
         else if (!$link) {
-            $link = $this->_link();
+            $link = $this->$link_method();
         }
         _redirect($link);
     }
