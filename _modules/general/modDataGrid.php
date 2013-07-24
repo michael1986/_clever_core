@@ -3102,23 +3102,11 @@ class modDataGrid extends _module {
     }
 
     public function grid_link($params = array()) {
-        if (_is_ssl_request()) {
-            $method = '_ssl_link';
-        }
-        else {
-            $method = '_link';
-        }
-        return $this->internal_grid_link($params, $method);
+        return $this->internal_grid_link($params, '_link');
     }
 
     public function grid_hlink($params = array()) {
-        if (_is_ssl_request()) {
-            $method = '_ssl_hlink';
-        }
-        else {
-            $method = '_hlink';
-        }
-        return $this->internal_grid_link($params, $method);
+        return $this->internal_grid_link($params, '_hlink');
     }
 
     protected function internal_grid_link($params = array(), $method = '_hlink') {
@@ -3152,23 +3140,11 @@ class modDataGrid extends _module {
     }
 
     public function details_link($id, $params = array()) {
-        if (_is_ssl_request()) {
-            $method = '_ssl_link';
-        }
-        else {
-            $method = '_link';
-        }
-        return $this->internal_details_link($id, $params, $method);
+        return $this->internal_details_link($id, $params, '_link');
     }
 
     public function details_hlink($id, $params = array()) {
-        if (_is_ssl_request()) {
-            $method = '_ssl_hlink';
-        }
-        else {
-            $method = '_hlink';
-        }
-        return $this->internal_details_link($id, $params, $method);
+        return $this->internal_details_link($id, $params, '_hlink');
     }
 
     protected function internal_details_link($id, $params = array(), $method = '_hlink') {
@@ -3202,31 +3178,17 @@ class modDataGrid extends _module {
     }
 
     public function action_link($id, $act, $add_mode = false, $params = array()) {
-        if (_is_ssl_request()) {
-            $method = '_ssl_link';
-        }
-        else {
-            $method = '_link';
-        }
-        return $this->internal_action_link($id, $act, $add_mode, $params, $method);
+        return $this->internal_action_link($id, $act, $add_mode, $params, '_link');
     }
 
     public function action_hlink($id, $act, $add_mode = false, $params = array()) {
-        if (_is_ssl_request()) {
-            $method = '_ssl_hlink';
-        }
-        else {
-            $method = '_hlink';
-        }
-        return $this->internal_action_link($id, $act, $add_mode, $params, $method);
+        return $this->internal_action_link($id, $act, $add_mode, $params, '_hlink');
     }
 
     public function internal_action_link($id, $act, $add_mode = false, $params = array(), $method = '_hlink') {
         $this->initialize();
 
         $is_ajax = $this->controls[$act]['ajax'] || $this->controls[$act]['popup'] ? 'yes' : false;
-        
-        
         
         return call_user_func_array(
             array($this, $method), 
@@ -3539,19 +3501,12 @@ class modDataGrid extends _module {
         }
         */
         // 2012-04-04
-        if (_is_ssl_request()) {
-            $method = '_ssl_link';
-        }
-        else {
-            $method = '_link';
-        }
-        
         _overwhelm_response(json_encode(array(
             'type' => 'grid_js',
             // 'content' => $this->get_js_instance() . '.popupModalHide(' . $level . '); ' . $this->get_js_instance() . '.loadContent(\'' . $this->_link(array_merge($params, array($this->param_is_ajax_request => 'yes'))) . '\');'
             // 2012-04-04
             // 'content' => $this->get_js_instance() . '.popupModalHide(' . $level . '); ' . $this->get_js_instance() . '.loadContent(\'' . $this->_link(array($this->param_is_ajax_request => 'yes')) . '\');'
-            'content' => $this->get_js_instance() . '.popupModalHide(' . $level . '); ' . $this->get_js_instance() . '.loadContent(\'' . $this->$method(array_merge($this->get_action_params(false), array($this->param_is_ajax_request => 'yes'))) . '\');'
+            'content' => $this->get_js_instance() . '.popupModalHide(' . $level . '); ' . $this->get_js_instance() . '.loadContent(\'' . $this->_link(array_merge($this->get_action_params(false), array($this->param_is_ajax_request => 'yes'))) . '\');'
         )), 'application/json');
     }
 
@@ -3568,18 +3523,12 @@ class modDataGrid extends _module {
             $params = $this->get_grid_params();
         }
         */
-        if (_is_ssl_request()) {
-            $method = '_ssl_link';
-        }
-        else {
-            $method = '_link';
-        }
         _overwhelm_response(json_encode(array(
             'type' => 'grid_js',
             // 'content' => $this->get_js_instance() . '.loadContent(\'' . $this->_link(array_merge($params, array($this->param_is_ajax_request => 'yes'))) . '\');'
             // 2012-04-04
             // 'content' => $this->get_js_instance() . '.loadContent(\'' . $this->_link(array($this->param_is_ajax_request => 'yes')) . '\');'
-            'content' => $this->get_js_instance() . '.loadContent(\'' . $this->$method(array_merge($this->get_action_params(false), array($this->param_is_ajax_request => 'yes'))) . '\');'
+            'content' => $this->get_js_instance() . '.loadContent(\'' . $this->_link(array_merge($this->get_action_params(false), array($this->param_is_ajax_request => 'yes'))) . '\');'
         )), 'application/json');
     }
 

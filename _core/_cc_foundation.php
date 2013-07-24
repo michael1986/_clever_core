@@ -688,10 +688,14 @@ abstract class _cc_foundation {
     }
 
     public static function link($params, $rout_rule = false, $params_separator = false, $split_url_params = false) {
+        return self::internal_link($params, $rout_rule, $params_separator, $split_url_params, 'get_baseurl');
+    }
+    
+    public static function http_link($params, $rout_rule = false, $params_separator = false, $split_url_params = false) {
         return self::internal_link($params, $rout_rule, $params_separator, $split_url_params, 'get_http_baseurl');
     }
-
-    public static function ssl_link($params, $rout_rule = false, $params_separator = false, $split_url_params = false) {
+    
+    public static function https_link($params, $rout_rule = false, $params_separator = false, $split_url_params = false) {
         return self::internal_link($params, $rout_rule, $params_separator, $split_url_params, 'get_https_baseurl');
     }
 

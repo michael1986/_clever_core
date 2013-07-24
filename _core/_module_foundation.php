@@ -409,16 +409,28 @@ class _module_foundation extends _core {
     * 
     * При генерировании ссылки будут учтены все правила, перечисленные в настройке _url_converters.
     * 
+    * Michael: Ссылка генерируется с протоколом для текущего запроса 
+    *  
     * @param array $params
     * @param mixed $rout_rule
     * @return string ссылка
-    */
+    */ 
     public function _link($params = array(), $rout_rule = false, $split_url_params = false) {
         return $this->_internal_link($params, $rout_rule, '&', $split_url_params, 'link');
     }
+    
+    /**
+     * Ссылка генерируется исключительно с HTTP протоколом
+     */
+    public function _http_link($params = array(), $rout_rule = false, $split_url_params = false) {
+        return $this->_internal_link($params, $rout_rule, '&', $split_url_params, 'http_link');
+    }
 
-    public function _ssl_link($params = array(), $rout_rule = false, $split_url_params = false) {
-        return $this->_internal_link($params, $rout_rule, '&', $split_url_params, 'ssl_link');
+    /**
+     * Ссылка генерируется исключительно с HTTPS протоколом
+     */
+    public function _https_link($params = array(), $rout_rule = false, $split_url_params = false) {
+        return $this->_internal_link($params, $rout_rule, '&', $split_url_params, 'https_link');
     }
 
     /**
@@ -442,11 +454,22 @@ class _module_foundation extends _core {
     public function _hlink($params = array(), $rout_rule = false, $split_url_params = false) {
         return $this->_internal_link($params, $rout_rule, '&amp;', $split_url_params, 'link');
     }
-
-    public function _ssl_hlink($params = array(), $rout_rule = false, $split_url_params = false) {
-        return $this->_internal_link($params, $rout_rule, '&amp;', $split_url_params, 'ssl_link');
+    
+    /**
+     * Ссылка генерируется исключительно с HTTP протоколом
+     */
+    public function _http_hlink($params = array(), $rout_rule = false, $split_url_params = false) {
+        return $this->_internal_link($params, $rout_rule, '&amp;', $split_url_params, 'http_link');
     }
 
+    /**
+     * Ссылка генерируется исключительно с HTTPS протоколом
+     */
+    public function _https_hlink($params = array(), $rout_rule = false, $split_url_params = false) {
+        return $this->_internal_link($params, $rout_rule, '&amp;', $split_url_params, 'https_link');
+    }
+    
+    
     /**
     * Depricated. Для обратной совместимости
     */
@@ -476,18 +499,11 @@ class _module_foundation extends _core {
     }
 
     public function _redirect($link = false) {
-        if (_is_ssl_request()) {
-            $link_method = '_ssl_link';
-        }
-        else {
-            $link_method = '_link';
-        }
-        
         if (is_array($link)) {
-            $link = $this->$link_method($link);
+            $link = $this->_link($link);
         }
         else if (!$link) {
-            $link = $this->$link_method();
+            $link = $this->_link();
         }
         _redirect($link);
     }

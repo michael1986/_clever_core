@@ -381,12 +381,12 @@ class modFormBasic extends _module {
         $tpl_data = array();
         $tpl_data['id'] = $this->id;
 
-        if (_is_ssl_request()) {
-            list($tpl_data['action'], $hidden_params) = $this->_ssl_hlink(false, false, true);
-        }
-        else {
+        //if (_is_ssl_request()) {
+        //    list($tpl_data['action'], $hidden_params) = $this->_ssl_hlink(false, false, true);
+        //}
+        //else {
             list($tpl_data['action'], $hidden_params) = $this->_hlink(false, false, true);
-        }
+        //}
         $tpl_data['title'] = $this->title;
 
         $tpl_data['fields'] = array();
