@@ -543,7 +543,8 @@ class modForm extends modFormBasic {
     */
     protected function get_tpl_data() {
         $tpl_data = parent::get_tpl_data();
-
+        
+        $tpl_data['edit_id'] = $this->edit_id;
         $tpl_data['ajax'] = $this->ajax;
         $tpl_data['ajax_handler'] = $this->ajax_handler;
         $tpl_data['current_step'] = $this->step;
